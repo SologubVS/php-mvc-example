@@ -15,4 +15,8 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
         'xdebug.client_host = host.docker.internal' \
         'xdebug.mode = develop,debug' \
         'xdebug.start_with_request = yes'; \
-    } > /usr/local/etc/php/conf.d/000-xdebug.ini
+    } > /usr/local/etc/php/conf.d/000-xdebug.ini; \
+    \
+    apt-get update; \
+    apt-get install -y --no-install-recommends git; \
+    rm -rf /var/lib/apt/lists/*
