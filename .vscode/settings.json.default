@@ -1,0 +1,14 @@
+{
+    "files.encoding": "utf8",
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "[php]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4
+    },
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2
+    }
+}
