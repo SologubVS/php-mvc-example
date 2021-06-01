@@ -1,13 +1,12 @@
 version: '3.7'
-
 services:
-    php-apache:
-        build:
-            context: .
-        image: pmf/php:7.4-apache
-        ports:
-            - ${APP_PORT:-80}:80
-        volumes:
-            - ./:/var/www/html:cached
-        environment:
-            APACHE_DOCUMENT_ROOT: /var/www/html/public
+  php-apache:
+    build:
+      context: .
+    image: pmf/php:7.4-apache
+    ports:
+      - ${APP_PORT:-80}:80
+    volumes:
+      - ./:/var/www/html:cached
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/html/public
