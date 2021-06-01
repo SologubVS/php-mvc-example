@@ -10,5 +10,8 @@
     "[dockercompose]": {
         "editor.insertSpaces": true,
         "editor.tabSize": 2
-    }
+    },
+    // PHP Intelephense recommended settings.
+    "php.suggest.basic": false,
+    "php.validate.enable": false
 }
