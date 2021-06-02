@@ -12,6 +12,12 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
     install-php-extensions xdebug; \
     { \
         printf '%s\n' \
+        'error_reporting = E_ALL' \
+        'display_startup_errors = On' \
+        'log_errors = On'; \
+    } > /usr/local/etc/php/conf.d/000-php.ini; \
+    { \
+        printf '%s\n' \
         'xdebug.client_host = host.docker.internal' \
         'xdebug.mode = develop,debug' \
         'xdebug.start_with_request = yes'; \
