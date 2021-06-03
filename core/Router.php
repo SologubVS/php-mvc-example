@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 class Router
 {
     /**
@@ -90,11 +92,13 @@ class Router
             $toPascalCase = function (string $string): string {
                 return str_replace('-', '', ucwords($string, '-'));
             };
-
             $controllerName = $toPascalCase($this->params['controller']);
+            $controllerName = "\App\Controllers\\$controllerName";
+
             if (class_exists($controllerName)) {
                 $controller = new $controllerName();
                 $action = lcfirst($toPascalCase($this->params['action']));
+
                 if (is_callable([$controller, $action])) {
                     $controller->$action();
                 } else {
