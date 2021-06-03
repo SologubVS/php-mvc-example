@@ -18,3 +18,11 @@ spl_autoload_register(function ($class) {
         }
     }
 });
+
+$router = new \Core\Router();
+$router->add('', [
+    'controller' => 'home',
+    'action'     => 'index',
+]);
+$router->add('{controller}/{action}');
+$router->dispatch($_SERVER['QUERY_STRING']);
