@@ -23,6 +23,10 @@ class Router
      * the route string is converted to a regular expression,
      * and can contain variables in the {variable} format.
      *
+     * By default, the regular expression [a-z-]+ is used to retrieve
+     * the value of a variable. It is possible to specify a different
+     * regular expression using the {variable:[a-z-]+} syntax.
+     *
      * @param string $route The route URL.
      * @param array $params Parameters (controller, action, etc.).
      * @return void
@@ -31,6 +35,7 @@ class Router
     {
         $route = str_replace('/', '\/', $route);
         $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
+        $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
         $route = "/^$route$/i";
 
         $this->routes[$route] = $params;
