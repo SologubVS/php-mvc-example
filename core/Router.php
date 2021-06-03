@@ -77,6 +77,38 @@ class Router
     }
 
     /**
+     * Dispatch the route.
+     *
+     * Creating the controller object and running the action method.
+     *
+     * @param string $url The route URL.
+     * @return void
+     */
+    public function dispatch(string $url)
+    {
+        if ($this->match($url)) {
+            $toPascalCase = function (string $string): string {
+                return str_replace('-', '', ucwords($string, '-'));
+            };
+
+            $controllerName = $toPascalCase($this->params['controller']);
+            if (class_exists($controllerName)) {
+                $controller = new $controllerName();
+                $action = lcfirst($toPascalCase($this->params['action']));
+                if (is_callable([$controller, $action])) {
+                    $controller->$action();
+                } else {
+                    echo "Method $action (in controller $controllerName) not found.";
+                }
+            } else {
+                echo "Controller class $controllerName not found.";
+            }
+        } else {
+            echo "No route matched.";
+        }
+    }
+
+    /**
      * Get the currently matched parameters.
      *
      * @return array
