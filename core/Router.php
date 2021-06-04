@@ -88,6 +88,8 @@ class Router
      */
     public function dispatch(string $url)
     {
+        $url = $this->removeQueryStringVars($url);
+
         if ($this->match($url)) {
             $toPascalCase = function (string $string): string {
                 return str_replace('-', '', ucwords($string, '-'));
@@ -110,6 +112,30 @@ class Router
         } else {
             echo "No route matched.";
         }
+    }
+
+    /**
+     * Remove the query string variables from the URL.
+     *
+     * As the full query string is used for the route, any
+     * variables at the end will need to be removed before
+     * the route is matched to the routing table.
+     *
+     * @param string $url The route URL.
+     * @return string The URL with the query string variables removed.
+     */
+    protected function removeQueryStringVars(string $url): string
+    {
+        if ($url != '') {
+            $parts = explode('&', $url, 2);
+
+            if (strpos($parts[0], '=') === false) {
+                $url = $parts[0];
+            } else {
+                $url = '';
+            }
+        }
+        return $url;
     }
 
     /**
