@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class Posts
+class Posts extends \Core\AbstractController
 {
     /**
      * Show the index page.

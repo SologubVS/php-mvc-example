@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class Home
+class Home extends \Core\AbstractController
 {
     /**
      * Show the index page.

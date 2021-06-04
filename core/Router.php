@@ -98,7 +98,7 @@ class Router
             $controllerName = "\App\Controllers\\$controllerName";
 
             if (class_exists($controllerName)) {
-                $controller = new $controllerName();
+                $controller = new $controllerName($this->params);
                 $action = lcfirst($toPascalCase($this->params['action']));
 
                 if (is_callable([$controller, $action])) {
