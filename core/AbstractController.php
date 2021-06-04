@@ -5,6 +5,13 @@ namespace Core;
 abstract class AbstractController
 {
     /**
+     * Action method name suffix.
+     *
+     * @var string
+     */
+    public const ACTION_NAME_SUFFIX = 'Action';
+
+    /**
      * Parameters from the matched route.
      *
      * @var array
@@ -30,7 +37,7 @@ abstract class AbstractController
      */
     public function __call(string $name, array $arguments)
     {
-        $actionMethod = $name . 'Action';
+        $actionMethod = $name . static::ACTION_NAME_SUFFIX;
         if (method_exists($this, $actionMethod)) {
             if ($this->before() !== false) {
                 call_user_func_array([$this, $actionMethod], $arguments);

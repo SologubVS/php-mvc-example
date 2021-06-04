@@ -101,7 +101,8 @@ class Router
                 $controller = new $controllerName($this->params);
                 $action = lcfirst($toPascalCase($this->params['action']));
 
-                if (is_callable([$controller, $action])) {
+                $suffix = AbstractController::ACTION_NAME_SUFFIX;
+                if (!preg_match("/$suffix$/i", $action)) {
                     $controller->$action();
                 } else {
                     echo "Method $action (in controller $controllerName) not found.";
