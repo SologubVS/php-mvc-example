@@ -33,7 +33,7 @@ class Router
      * @param array $params Parameters (controller, action, etc.).
      * @return void
      */
-    public function add(string $route, array $params = [])
+    public function add(string $route, array $params = []): void
     {
         $route = str_replace('/', '\/', $route);
         $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
@@ -86,7 +86,7 @@ class Router
      * @param string $url The route URL.
      * @return void
      */
-    public function dispatch(string $url)
+    public function dispatch(string $url): void
     {
         $url = $this->removeQueryStringVars($url);
 
