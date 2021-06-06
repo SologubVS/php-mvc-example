@@ -1,9 +1,11 @@
 <?php
 
+define('BASE_PATH', realpath(__DIR__ . '/../'));
+
 spl_autoload_register(function ($class) {
     $roots = [
-        __DIR__ . '/../app/'  => 'App\\',
-        __DIR__ . '/../core/' => 'Core\\',
+        BASE_PATH . '/app/'  => 'App\\',
+        BASE_PATH . '/core/' => 'Core\\',
     ];
     foreach ($roots as $baseDir => $prefix) {
         $len = strlen($prefix);
