@@ -2,7 +2,10 @@
 
 namespace App\Controllers;
 
-class Home extends \Core\AbstractController
+use Core\AbstractController;
+use Core\View;
+
+class Home extends AbstractController
 {
     /**
      * Show the index page.
@@ -11,6 +14,6 @@ class Home extends \Core\AbstractController
      */
     public function indexAction()
     {
-        echo "Hello from the index action in the Home controller!";
+        View::render('home/index.php');
     }
 }
