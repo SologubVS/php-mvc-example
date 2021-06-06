@@ -25,4 +25,5 @@ $router->add('', [
     'action'     => 'index',
 ]);
 $router->add('{controller}/{action}');
+$router->add('{namespace}/{controller}/{action}');
 $router->dispatch($_SERVER['QUERY_STRING']);

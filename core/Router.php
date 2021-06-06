@@ -5,6 +5,15 @@ namespace Core;
 class Router
 {
     /**
+     * Default controller namespace.
+     *
+     * Must contain a trailing slash.
+     *
+     * @var string
+     */
+    protected const DEFAULT_CONTROLLER_NS = 'App\Controllers\\';
+
+    /**
      * Array of routes (the routing table).
      *
      * @var array
@@ -95,7 +104,7 @@ class Router
                 return str_replace('-', '', ucwords($string, '-'));
             };
             $controllerName = $toPascalCase($this->params['controller']);
-            $controllerName = "\App\Controllers\\$controllerName";
+            $controllerName = $this->getNamespace() . $controllerName;
 
             if (class_exists($controllerName)) {
                 $controller = new $controllerName($this->params);
@@ -137,6 +146,24 @@ class Router
             }
         }
         return $url;
+    }
+
+    /**
+     * Get the full namespace for a controller class.
+     *
+     * The sub-namespace defined in the route parameters
+     * is added to default namespace.
+     *
+     * @return string Full controller namespace.
+     */
+    protected function getNamespace(): string
+    {
+        $namespace = static::DEFAULT_CONTROLLER_NS;
+        if (isset($this->params['namespace'])) {
+            $subNamespace = ucwords($this->params['namespace'], '\\');
+            $namespace .= "$subNamespace\\";
+        }
+        return $namespace;
     }
 
     /**
