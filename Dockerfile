@@ -28,5 +28,8 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
     } > /usr/local/etc/php/conf.d/000-xdebug.ini; \
     \
     apt-get update; \
-    apt-get install -y --no-install-recommends git; \
+    apt-get install -y --no-install-recommends \
+        zip \
+        unzip \
+        git; \
     rm -rf /var/lib/apt/lists/*
