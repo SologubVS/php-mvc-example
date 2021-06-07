@@ -2,6 +2,7 @@
 Thumbs.db
 
 .env
+/vendor
 
 .vscode/*
 !.vscode/extensions.json
