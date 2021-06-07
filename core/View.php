@@ -5,20 +5,22 @@ namespace Core;
 class View
 {
     /**
-     * Render a view file.
+     * Render a view template file.
      *
-     * @param string $view Relative path to the view file.
+     * @param string $template Relative path to the template file.
      * @param array $data Data passing into the view.
      * @return void
      */
-    public static function render(string $view, array $data = []): void
+    public static function render(string $template, array $data = []): void
     {
-        $basePath = defined('BASE_PATH') ? BASE_PATH : realpath(__DIR__);
-        $viewPath = "$basePath/app/views/$view";
+        static $twig;
+        if ($twig === null) {
+            $basePath = defined('BASE_PATH') ? BASE_PATH : realpath(__DIR__);
 
-        if (is_readable($viewPath)) {
-            extract($data, EXTR_SKIP);
-            require $viewPath;
+            $loader = new \Twig\Loader\FilesystemLoader("$basePath/app/views");
+            $twig = new \Twig\Environment($loader);
         }
+
+        echo $twig->render($template, $data);
     }
 }
