@@ -1,9 +1,15 @@
 {
     "name": "pmf/php-mvc-framework",
     "type": "project",
+    "license": "MIT",
     "require": {
         "php": "^7.4",
         "twig/twig": "^3.0"
     },
-    "license": "MIT"
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core/",
+            "App\\": "app/"
+        }
+    }
 }
