@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-define('BASE_PATH', realpath(__DIR__ . '/../'));
+\Core\View::setPath(__DIR__ . '/../app/views');
 
 $router = new \Core\Router();
 $router->add('', [
