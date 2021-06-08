@@ -5,16 +5,16 @@ namespace Core;
 class View
 {
     /**
-     * Absolute path where to look for template files.
+     * Absolute paths where to look for template files.
      *
-     * @var string
+     * @var array
      */
-    protected static $path;
+    protected static $paths;
 
     /**
      * Render a view template file.
      *
-     * If the absolute path to the template files is not
+     * If the absolute paths to the template files is not
      * set, then search location defaults to getcwd().
      * @see \Core\View::$path
      * @see \Core\View::setPath()
@@ -25,21 +25,21 @@ class View
      */
     public static function render(string $template, array $data = []): void
     {
-        $path = static::$path ?? getcwd();
+        $paths = static::$paths ?? getcwd();
         $twig = new \Twig\Environment(
-            new \Twig\Loader\FilesystemLoader($path),
+            new \Twig\Loader\FilesystemLoader($paths),
         );
         echo $twig->render($template, $data);
     }
 
     /**
-     * Set absolute path where to look for template files.
+     * Add absolute path where to look for template files.
      *
      * @param string $path Absolute path to templates.
      * @return void
      */
-    public static function setPath(string $path): void
+    public static function addPath(string $path): void
     {
-        static::$path = $path;
+        static::$paths[] = $path;
     }
 }
