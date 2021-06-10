@@ -4,7 +4,7 @@
         "../docker-compose.yml",
         "docker-compose.yml"
     ],
-    "service": "php-apache",
+    "service": "web",
     "workspaceFolder": "/var/www/html",
     "settings": {
         "intelephense.environment.phpVersion": "7.4",
