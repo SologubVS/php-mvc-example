@@ -13,3 +13,14 @@ services:
       sh -c "
       composer install &&
       apache2-foreground"
+    depends_on:
+      - db
+  db:
+    build: ./docker/db
+    image: pmf/mysql:5.7
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?}
+volumes:
+  db-data:

@@ -13,7 +13,7 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
     curl -o /usr/local/bin/install-php-extensions \
     -fL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions; \
     chmod +x /usr/local/bin/install-php-extensions; \
-    install-php-extensions xdebug; \
+    install-php-extensions pdo_mysql xdebug; \
     { \
         printf '%s\n' \
         'error_reporting = E_ALL' \
