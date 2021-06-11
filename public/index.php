@@ -2,9 +2,11 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-\Core\View::addPath(__DIR__ . '/../app/views');
+Dotenv\Dotenv::createImmutable(dirname(__DIR__))->safeLoad();
 
-$router = new \Core\Router();
+Core\View::addPath(__DIR__ . '/../app/views');
+
+$router = new Core\Router();
 $router->add('', [
     'controller' => 'home',
     'action'     => 'index',
