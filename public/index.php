@@ -9,8 +9,10 @@ Core\View::addPath(__DIR__ . '/../app/views');
 $router = new Core\Router();
 $router->add('', [
     'controller' => 'home',
-    'action'     => 'index',
+    'action' => 'index',
+]);
+$router->add('{controller}', [
+    'action' => 'index',
 ]);
 $router->add('{controller}/{action}');
-$router->add('{namespace}/{controller}/{action}');
 $router->dispatch($_SERVER['QUERY_STRING']);
