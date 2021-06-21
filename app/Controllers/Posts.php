@@ -2,7 +2,10 @@
 
 namespace App\Controllers;
 
-class Posts extends \Core\AbstractController
+use Core\AbstractController;
+use Core\View;
+
+class Posts extends AbstractController
 {
     /**
      * Show the index page.
@@ -11,7 +14,9 @@ class Posts extends \Core\AbstractController
      */
     public function indexAction()
     {
-        echo "Hello from the index action in the Posts controller!";
+        View::render('posts/index.html', [
+            'controller' => get_class($this),
+        ]);
     }
 
     /**
