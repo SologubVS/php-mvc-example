@@ -12,7 +12,7 @@ class Home extends AbstractController
      *
      * @return void
      */
-    public function indexAction()
+    public function indexAction(): void
     {
         View::render('home/index.html');
     }

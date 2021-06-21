@@ -12,7 +12,7 @@ class Posts extends AbstractController
      *
      * @return void
      */
-    public function indexAction()
+    public function indexAction(): void
     {
         View::render('posts/index.html', [
             'posts' => [
@@ -30,15 +30,5 @@ class Posts extends AbstractController
                 ],
             ],
         ]);
-    }
-
-    /**
-     * Show the add new page.
-     *
-     * @return void
-     */
-    public function addNewAction()
-    {
-        echo "Hello from the addNew action in the Posts controller!";
     }
 }
