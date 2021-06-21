@@ -14,8 +14,6 @@ class Home extends AbstractController
      */
     public function indexAction()
     {
-        View::render('home/index.html', [
-            'controller' => get_class($this),
-        ]);
+        View::render('home/index.html');
     }
 }
