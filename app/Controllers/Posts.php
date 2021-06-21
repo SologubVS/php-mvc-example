@@ -15,7 +15,20 @@ class Posts extends AbstractController
     public function indexAction()
     {
         View::render('posts/index.html', [
-            'controller' => get_class($this),
+            'posts' => [
+                [
+                    'title' => 'Post #1',
+                    'content' => 'Cras molestie consequat arcu. Praesent pretium nisl non nec.',
+                ],
+                [
+                    'title' => 'Post #2',
+                    'content' => 'Maecenas elementum vel mauris et ornare. Nullam at pharetra.',
+                ],
+                [
+                    'title' => 'Post #3',
+                    'content' => 'Quisque iaculis bibendum egestas. Nullam mattis, nisi metus.',
+                ],
+            ],
         ]);
     }
 
