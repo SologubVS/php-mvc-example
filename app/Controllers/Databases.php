@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Database;
 use Core\AbstractController;
+use Core\View;
 
 class Databases extends AbstractController
 {
@@ -14,5 +15,8 @@ class Databases extends AbstractController
      */
     public function indexAction(): void
     {
+        View::render('databases/index.html', [
+            'databases' => Database::all(),
+        ]);
     }
 }
