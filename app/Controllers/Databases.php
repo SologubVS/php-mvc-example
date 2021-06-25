@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Database;
 use Core\AbstractController;
 
 class Databases extends AbstractController
