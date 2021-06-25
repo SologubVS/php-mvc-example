@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Databases{% endblock %}
+{% block body %}
+    <h1>Databases</h1>
+    <p>Aenean metus lacus, facilisis ac mattis vitae, malesuada ut.</p>
+
+    {% for database in databases %}
+        <article>
+            <h2>{{ database.SCHEMA_NAME }}</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Default character set:</td>
+                        <td>{{ database.DEFAULT_CHARACTER_SET_NAME }}</td>
+
+                    </tr>
+                    <tr>
+                        <td>Default collation:</td>
+                        <td>{{ database.DEFAULT_COLLATION_NAME }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
+    {% endfor %}
+{% endblock %}
