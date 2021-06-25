@@ -16,15 +16,15 @@ class Post extends AbstractModel
         return [
             [
                 'title' => 'Post #1',
-                'content' => 'Cras molestie consequat arcu. Praesent pretium nisl non nec.',
+                'content' => 'Pellentesque venenatis tempor elementum. Suspendisse pretium in.',
             ],
             [
                 'title' => 'Post #2',
-                'content' => 'Maecenas elementum vel mauris et ornare. Nullam at pharetra.',
+                'content' => 'Praesent elementum tellus non lorem feugiat dictum. Ut pharetra.',
             ],
             [
                 'title' => 'Post #3',
-                'content' => 'Quisque iaculis bibendum egestas. Nullam mattis, nisi metus.',
+                'content' => 'Proin varius tellus at euismod porttitor. Quisque sit amet duis.',
             ],
         ];
     }
