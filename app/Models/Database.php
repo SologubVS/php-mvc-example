@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Core\AbstractModel;
+use PDO;
 
 class Database extends AbstractModel
 {
@@ -13,6 +14,8 @@ class Database extends AbstractModel
      */
     public static function all(): array
     {
-        return [];
+        $pdo = static::getPdo();
+        $statement = $pdo->query('SELECT * FROM information_schema.SCHEMATA');
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 }
