@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Exception;
+
 abstract class AbstractController
 {
     /**
@@ -34,6 +36,8 @@ abstract class AbstractController
      * @param string $name The name of the method.
      * @param array $arguments Parameters passed to the method.
      * @return mixed
+     *
+     * @throws \Exception
      */
     public function __call(string $name, array $arguments)
     {
@@ -44,7 +48,7 @@ abstract class AbstractController
                 $this->after();
             }
         } else {
-            echo "Method $actionMethod (in controller " . get_class($this) . ') not found.';
+            throw new Exception("Method $actionMethod (in controller " . get_class($this) . ') not found.');
         }
     }
 
