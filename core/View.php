@@ -17,7 +17,7 @@ class View
      * If the absolute paths to the template files is not
      * set, then search location defaults to getcwd().
      * @see \Core\View::$path
-     * @see \Core\View::setPath()
+     * @see \Core\View::addPath()
      *
      * @param string $template Relative path to the template file.
      * @param array $data Data passing into the view.
