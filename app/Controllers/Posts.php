@@ -9,7 +9,7 @@ use Core\View;
 class Posts extends AbstractController
 {
     /**
-     * Show the index page.
+     * Show page with all posts.
      *
      * @return void
      */

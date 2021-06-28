@@ -8,7 +8,7 @@ use Core\View;
 class Home extends AbstractController
 {
     /**
-     * Show the index page.
+     * Show home page.
      *
      * @return void
      */

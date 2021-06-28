@@ -9,7 +9,7 @@ use Core\View;
 class Databases extends AbstractController
 {
     /**
-     * Show the index page.
+     * Show page with all databases.
      *
      * @return void
      */
