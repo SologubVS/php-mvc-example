@@ -4,7 +4,7 @@ namespace Core\Exception;
 
 use ErrorException;
 
-class ExceptionHandler
+class Handler
 {
     /**
      * Register this instance as an exception handler.
