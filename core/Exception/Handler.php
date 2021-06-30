@@ -71,7 +71,14 @@ class Handler
     protected function render(Throwable $exception): void
     {
         $this->registerViewPaths();
-        View::render('error.html');
+
+        View::render('error.html', [
+            'exception' => get_class($exception),
+            'message'   => $exception->getMessage(),
+            'file'      => $exception->getFile(),
+            'line'      => $exception->getLine(),
+            'trace'     => $exception->getTraceAsString(),
+        ]);
     }
 
     /**
