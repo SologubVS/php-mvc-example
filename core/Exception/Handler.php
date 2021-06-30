@@ -79,7 +79,9 @@ class Handler
     {
         $this->registerViewPaths();
 
-        View::render('error.html', $this->getDetails($exception));
+        if ($this->isDebug()) {
+            View::render('error.html', $this->getDetails($exception));
+        }
     }
 
     /**
