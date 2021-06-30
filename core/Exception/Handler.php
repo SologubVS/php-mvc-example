@@ -70,7 +70,17 @@ class Handler
      */
     protected function render(Throwable $exception): void
     {
-        View::addPath(__DIR__ . '/views');
+        $this->registerViewPaths();
         View::render('error.html');
+    }
+
+    /**
+     * Register the error view paths.
+     *
+     * @return void
+     */
+    protected function registerViewPaths(): void
+    {
+        View::addPath(__DIR__ . '/views');
     }
 }
