@@ -72,13 +72,7 @@ class Handler
     {
         $this->registerViewPaths();
 
-        View::render('error.html', [
-            'exception' => get_class($exception),
-            'message'   => $exception->getMessage(),
-            'file'      => $exception->getFile(),
-            'line'      => $exception->getLine(),
-            'trace'     => $exception->getTraceAsString(),
-        ]);
+        View::render('error.html', $this->getDetails($exception));
     }
 
     /**
@@ -89,5 +83,22 @@ class Handler
     protected function registerViewPaths(): void
     {
         View::addPath(__DIR__ . '/views');
+    }
+
+    /**
+     * Get basic info about an exception as an array.
+     *
+     * @param \Throwable $exception Exception to extract details from.
+     * @return array
+     */
+    protected function getDetails(Throwable $exception): array
+    {
+        return [
+            'exception' => get_class($exception),
+            'message'   => $exception->getMessage(),
+            'file'      => $exception->getFile(),
+            'line'      => $exception->getLine(),
+            'trace'     => $exception->getTraceAsString(),
+        ];
     }
 }
