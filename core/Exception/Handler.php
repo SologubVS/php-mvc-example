@@ -9,6 +9,13 @@ use Throwable;
 class Handler
 {
     /**
+     * Debug variable name.
+     *
+     * @var string
+     */
+    public const DEBUG_VAR = 'APP_DEBUG';
+
+    /**
      * Register this instance as an exception handler.
      *
      * @return void
@@ -100,5 +107,15 @@ class Handler
             'line'      => $exception->getLine(),
             'trace'     => $exception->getTraceAsString(),
         ];
+    }
+
+    /**
+     * Check that debug mode is active.
+     *
+     * @return bool True if active, false otherwise.
+     */
+    protected function isDebug(): bool
+    {
+        return filter_var($_ENV[static::DEBUG_VAR] ?? false, FILTER_VALIDATE_BOOLEAN);
     }
 }
