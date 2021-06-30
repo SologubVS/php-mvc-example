@@ -3,6 +3,7 @@
 namespace Core\Exception;
 
 use ErrorException;
+use Throwable;
 
 class Handler
 {
@@ -14,6 +15,7 @@ class Handler
     public function register(): void
     {
         set_error_handler([$this, 'handleError']);
+        set_exception_handler([$this, 'handleException']);
     }
 
     /**
@@ -31,6 +33,19 @@ class Handler
     {
         if (error_reporting() & $errno) {
             throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+        }
+    }
+
+    /**
+     * Handle an uncaught exception.
+     *
+     * @param \Throwable $exception Exception object that was thrown.
+     * @return void
+     */
+    public function handleException(Throwable $exception): void
+    {
+        if (ini_get('log_errors')) {
+            error_log("Fatal error: Uncaught $exception");
         }
     }
 }
