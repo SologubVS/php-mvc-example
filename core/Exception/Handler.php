@@ -45,10 +45,21 @@ class Handler
      */
     public function handleException(Throwable $exception): void
     {
+        $this->report($exception);
+        $this->render($exception);
+    }
+
+    /**
+     * Report an exception to the log.
+     *
+     * @param \Throwable $exception Exception object to be reported.
+     * @return void
+     */
+    protected function report(Throwable $exception): void
+    {
         if (ini_get('log_errors')) {
             error_log("Fatal error: Uncaught $exception");
         }
-        $this->render($exception);
     }
 
     /**
