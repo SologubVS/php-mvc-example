@@ -2,6 +2,7 @@
 
 namespace Core\Exception;
 
+use Core\View;
 use ErrorException;
 use Throwable;
 
@@ -47,5 +48,18 @@ class Handler
         if (ini_get('log_errors')) {
             error_log("Fatal error: Uncaught $exception");
         }
+        $this->render($exception);
+    }
+
+    /**
+     * Render an exception as an HTTP response.
+     *
+     * @param \Throwable $exception Exception object to be rendered.
+     * @return void
+     */
+    protected function render(Throwable $exception): void
+    {
+        View::addPath(__DIR__ . '/views');
+        View::render('error.html');
     }
 }
