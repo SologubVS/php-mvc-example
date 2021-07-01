@@ -2,6 +2,7 @@
 
 namespace Core\Exception;
 
+use Core\Exception\Debug\DebugTrait;
 use Core\View;
 use Throwable;
 
