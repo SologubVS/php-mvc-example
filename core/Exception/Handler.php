@@ -2,19 +2,11 @@
 
 namespace Core\Exception;
 
-use Core\View;
 use ErrorException;
 use Throwable;
 
 class Handler
 {
-    /**
-     * Debug variable name.
-     *
-     * @var string
-     */
-    public const DEBUG_VAR = 'APP_DEBUG';
-
     /**
      * Register this instance as an exception handler.
      *
@@ -70,54 +62,14 @@ class Handler
     }
 
     /**
-     * Render an exception as an HTTP response.
+     * Render an exception.
      *
      * @param \Throwable $exception Exception object to be rendered.
      * @return void
      */
     protected function render(Throwable $exception): void
     {
-        $this->registerViewPaths();
-
-        if ($this->isDebug()) {
-            View::render('error.html', $this->getDetails($exception));
-        }
-    }
-
-    /**
-     * Register the error view paths.
-     *
-     * @return void
-     */
-    protected function registerViewPaths(): void
-    {
-        View::addPath(__DIR__ . '/views');
-    }
-
-    /**
-     * Get basic info about an exception as an array.
-     *
-     * @param \Throwable $exception Exception to extract details from.
-     * @return array
-     */
-    protected function getDetails(Throwable $exception): array
-    {
-        return [
-            'exception' => get_class($exception),
-            'message'   => $exception->getMessage(),
-            'file'      => $exception->getFile(),
-            'line'      => $exception->getLine(),
-            'trace'     => $exception->getTraceAsString(),
-        ];
-    }
-
-    /**
-     * Check that debug mode is active.
-     *
-     * @return bool True if active, false otherwise.
-     */
-    protected function isDebug(): bool
-    {
-        return filter_var($_ENV[static::DEBUG_VAR] ?? false, FILTER_VALIDATE_BOOLEAN);
+        $renderer = new Renderer();
+        $renderer->render($exception);
     }
 }
