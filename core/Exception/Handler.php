@@ -2,11 +2,24 @@
 
 namespace Core\Exception;
 
+use Core\Exception\Debug\DebugTrait;
 use ErrorException;
 use Throwable;
 
 class Handler
 {
+    use DebugTrait;
+
+    /**
+     * Create a new exception handler.
+     *
+     * @param bool $debug Use debug mode.
+     */
+    public function __construct(bool $debug = false)
+    {
+        $this->setDebug($debug);
+    }
+
     /**
      * Register this instance as an exception handler.
      *
@@ -69,7 +82,7 @@ class Handler
      */
     protected function render(Throwable $exception): void
     {
-        $renderer = new Renderer();
+        $renderer = new Renderer($this->isDebug());
         $renderer->render($exception);
     }
 }
