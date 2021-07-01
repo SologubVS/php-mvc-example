@@ -2,7 +2,7 @@
 
 namespace Core\Database;
 
-class EnvConfig
+class Environment
 {
     /**
      * Host variable name.

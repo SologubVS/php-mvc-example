@@ -3,7 +3,7 @@
 namespace Core;
 
 use Core\Database\Connector;
-use Core\Database\EnvConfig;
+use Core\Database\Environment;
 use PDO;
 
 abstract class AbstractModel
@@ -35,7 +35,7 @@ abstract class AbstractModel
      */
     protected static function createPdo(): PDO
     {
-        $connector = new Connector(EnvConfig::get());
+        $connector = new Connector(Environment::get());
         return $connector->connect();
     }
 }
