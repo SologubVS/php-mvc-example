@@ -12,13 +12,9 @@ class Renderer
     /**
      * Create a new exception renderer.
      *
-     * If $debug is not specified, the value
-     * is taken from the environment variable.
-     * @see \Core\Exception\DebugTrait::setDebug()
-     *
-     * @param bool|null $debug Use debug mode.
+     * @param bool $debug Use debug mode.
      */
-    public function __construct(?bool $debug = null)
+    public function __construct(bool $debug = false)
     {
         $this->setDebug($debug);
     }
