@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>{{ message }}</title>
-    </head>
-    <body>
-        <b>Fatal error</b>: Uncaught {{ exception }}: {{ message }} in <b>{{ file }}</b> on line <b>{{ line }}</b>
-        <pre>Stack trace:<br>{{ trace }}</pre>
-    </body>
-</html>
+{% extends "error.base.html" %}
+
+{% block title %}{{ message }}{% endblock %}
+{% block body %}
+    <b>Fatal error</b>: Uncaught {{ exception }}: {{ message }} in <b>{{ file }}</b> on line <b>{{ line }}</b>
+    <pre>Stack trace:<br>{{ trace }}</pre>
+{% endblock %}

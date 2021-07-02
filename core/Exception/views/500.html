@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>500 Internal Server Error</title>
-    </head>
-    <body>
-        <h1>500 Internal Server Error</h1>
-        <p>The server encountered an internal error.</p>
-    </body>
-</html>
+{% extends "error.base.html" %}
+
+{% block title %}500 Internal Server Error{% endblock %}
+{% block details %}
+    <p>The server encountered an internal error.</p>
+{% endblock %}
