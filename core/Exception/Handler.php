@@ -27,8 +27,13 @@ class Handler
      */
     public function register(): void
     {
+        error_reporting(E_ALL);
         set_error_handler([$this, 'handleError']);
         set_exception_handler([$this, 'handleException']);
+
+        if (!$this->isDebug()) {
+            ini_set('display_errors', 'Off');
+        }
     }
 
     /**
