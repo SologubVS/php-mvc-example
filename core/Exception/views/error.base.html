@@ -7,7 +7,7 @@
     <body>
         {% block body %}
             <h1>{{ block('title') }}</h1>
-            {% block details %}{% endblock %}
+            <p>{% block message %}{% endblock %}</p>
         {% endblock %}
     </body>
 </html>
