@@ -32,6 +32,10 @@ class Renderer
 
         if ($this->isDebug()) {
             View::render('error.html', $this->getDetails($exception));
+        } else {
+            $code = $this->getStatusCode($exception);
+            http_response_code($code);
+            View::render("$code.html");
         }
     }
 
@@ -60,5 +64,22 @@ class Renderer
             'line'      => $exception->getLine(),
             'trace'     => $exception->getTraceAsString(),
         ];
+    }
+
+    /**
+     * Get exception status code.
+     *
+     * Defaults to 500. If the exception is an
+     * HttpException instance, its status code is returned.
+     *
+     * @param \Throwable $exception Exception to get status code for.
+     * @return int Status code.
+     */
+    protected function getStatusCode(Throwable $exception): int
+    {
+        if ($exception instanceof HttpException) {
+            return $exception->getStatusCode();
+        }
+        return 500;
     }
 }
