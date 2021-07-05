@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use Exception;
+use Core\Exception\HttpException;
 
 class Router
 {
@@ -97,7 +97,7 @@ class Router
      * @param string $url The route URL.
      * @return void
      *
-     * @throws \Exception
+     * @throws \Core\Exception\HttpException
      */
     public function dispatch(string $url): void
     {
@@ -118,13 +118,13 @@ class Router
                 if (!preg_match("/$suffix$/i", $action)) {
                     $controller->$action();
                 } else {
-                    throw new Exception("Method $action (in controller $controllerName) not found.");
+                    throw new HttpException(404, "Method $action (in controller $controllerName) not found.");
                 }
             } else {
-                throw new Exception("Controller class $controllerName not found.");
+                throw new HttpException(404, "Controller class $controllerName not found.");
             }
         } else {
-            throw new Exception('No route matched.');
+            throw new HttpException(404, 'No route matched.');
         }
     }
 

@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use Exception;
+use Core\Exception\HttpException;
 
 abstract class AbstractController
 {
@@ -37,7 +37,7 @@ abstract class AbstractController
      * @param array $arguments Parameters passed to the method.
      * @return mixed
      *
-     * @throws \Exception
+     * @throws \Core\Exception\HttpException
      */
     public function __call(string $name, array $arguments)
     {
@@ -48,7 +48,7 @@ abstract class AbstractController
                 $this->after();
             }
         } else {
-            throw new Exception("Method $actionMethod (in controller " . get_class($this) . ') not found.');
+            throw new HttpException(404, "Method $actionMethod (in controller " . get_class($this) . ') not found.');
         }
     }
 
