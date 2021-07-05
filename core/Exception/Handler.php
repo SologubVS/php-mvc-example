@@ -99,6 +99,17 @@ class Handler
      */
     protected function isDebugRendering(Throwable $exception): bool
     {
-        return $this->isDebug();
+        return $this->isDebug() && !$this->isNotFoundHttpException($exception);
+    }
+
+    /**
+     * Determine if the given exception is an HTTP exception with a 404 status code.
+     *
+     * @param \Throwable $exception Exception object to be checked.
+     * @return bool True if the exception is with a 404 status code, false otherwise.
+     */
+    protected function isNotFoundHttpException(Throwable $exception): bool
+    {
+        return $exception instanceof HttpException && $exception->getStatusCode() === 404;
     }
 }
