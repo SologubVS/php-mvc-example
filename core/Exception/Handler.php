@@ -87,7 +87,18 @@ class Handler
      */
     protected function render(Throwable $exception): void
     {
-        $renderer = new Renderer($this->isDebug());
+        $renderer = new Renderer($this->isDebugRendering($exception));
         $renderer->render($exception);
+    }
+
+    /**
+     * Determine if debug rendering of an exception is required.
+     *
+     * @param \Throwable $exception Exception object to be checked.
+     * @return bool True if debug rendering is required, false otherwise.
+     */
+    protected function isDebugRendering(Throwable $exception): bool
+    {
+        return $this->isDebug();
     }
 }
