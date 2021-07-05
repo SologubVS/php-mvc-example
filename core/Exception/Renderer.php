@@ -77,9 +77,6 @@ class Renderer
      */
     protected function getStatusCode(Throwable $exception): int
     {
-        if ($exception instanceof HttpException) {
-            return $exception->getStatusCode();
-        }
-        return 500;
+        return $exception instanceof HttpException ? $exception->getStatusCode() : 500;
     }
 }
