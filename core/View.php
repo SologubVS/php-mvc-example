@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Twig\Loader\FilesystemLoader;
+
 class View
 {
     /**
@@ -10,6 +12,13 @@ class View
      * @var array
      */
     protected static $paths;
+
+    /**
+     * Template file system loader.
+     *
+     * @var \Twig\Loader\FilesystemLoader
+     */
+    protected static $loader;
 
     /**
      * Render a view template file.
@@ -41,5 +50,21 @@ class View
     public static function addPath(string $path): void
     {
         static::$paths[] = $path;
+    }
+
+    /**
+     * Get template file system loader instance.
+     *
+     * Create a new instance of the loader if it
+     * has not been instantiated yet.
+     *
+     * @return \Twig\Loader\FilesystemLoader Template file system loader.
+     */
+    protected static function getLoader(): FilesystemLoader
+    {
+        if (static::$loader === null) {
+            static::$loader = new FilesystemLoader();
+        }
+        return static::$loader;
     }
 }
