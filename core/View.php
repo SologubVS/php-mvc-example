@@ -39,6 +39,17 @@ class View
     }
 
     /**
+     * Check if the template file exists at the specified path.
+     *
+     * @param string $template Relative path to the template file.
+     * @return bool True if the template file exists, false otherwise.
+     */
+    public static function exists(string $template): bool
+    {
+        return static::getLoader()->exists($template);
+    }
+
+    /**
      * Get template file system loader instance.
      *
      * Create a new instance of the loader if it
