@@ -62,7 +62,9 @@ class Handler
      */
     public function handleException(Throwable $exception): void
     {
-        $this->report($exception);
+        if (!$this->isHttpException($exception)) {
+            $this->report($exception);
+        }
         $this->render($exception);
     }
 
