@@ -62,7 +62,7 @@ class Handler
      */
     public function handleException(Throwable $exception): void
     {
-        if (!$this->isHttpException($exception)) {
+        if ($this->shouldReport($exception)) {
             $this->report($exception);
         }
         $this->render($exception);
@@ -91,6 +91,17 @@ class Handler
     {
         $renderer = new Renderer($this->isDebugRendering($exception));
         $renderer->render($exception);
+    }
+
+    /**
+     * Determine if the exception should be reported.
+     *
+     * @param \Throwable $exception Exception object to be checked.
+     * @return bool True if it should be reported, false otherwise.
+     */
+    protected function shouldReport(Throwable $exception): bool
+    {
+        return !$this->isHttpException($exception);
     }
 
     /**
