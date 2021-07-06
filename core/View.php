@@ -2,17 +2,11 @@
 
 namespace Core;
 
+use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
 class View
 {
-    /**
-     * Absolute paths where to look for template files.
-     *
-     * @var array
-     */
-    protected static $paths;
-
     /**
      * Template file system loader.
      *
@@ -23,21 +17,13 @@ class View
     /**
      * Render a view template file.
      *
-     * If the absolute paths to the template files is not
-     * set, then search location defaults to getcwd().
-     * @see \Core\View::$path
-     * @see \Core\View::addPath()
-     *
      * @param string $template Relative path to the template file.
      * @param array $data Data passing into the view.
      * @return void
      */
     public static function render(string $template, array $data = []): void
     {
-        $paths = static::$paths ?? getcwd();
-        $twig = new \Twig\Environment(
-            new \Twig\Loader\FilesystemLoader($paths),
-        );
+        $twig = new Environment(static::getLoader());
         echo $twig->render($template, $data);
     }
 
@@ -49,7 +35,7 @@ class View
      */
     public static function addPath(string $path): void
     {
-        static::$paths[] = $path;
+        static::getLoader()->addPath($path);
     }
 
     /**
