@@ -89,7 +89,7 @@ class Handler
      */
     protected function render(Throwable $exception): void
     {
-        $renderer = new Renderer($this->isDebugRendering($exception));
+        $renderer = new Renderer($this->shouldDebugRender($exception));
         $renderer->render($exception);
     }
 
@@ -110,7 +110,7 @@ class Handler
      * @param \Throwable $exception Exception object to be checked.
      * @return bool True if debug rendering is required, false otherwise.
      */
-    protected function isDebugRendering(Throwable $exception): bool
+    protected function shouldDebugRender(Throwable $exception): bool
     {
         return $this->isDebug() && !$this->isHttpException($exception);
     }
