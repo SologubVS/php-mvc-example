@@ -79,4 +79,16 @@ class Renderer
     {
         return $exception instanceof HttpException ? $exception->getStatusCode() : 500;
     }
+
+    /**
+     * Get HTTP error view template.
+     *
+     * @param int $statusCode HTTP status code.
+     * @return string Template file name.
+     */
+    protected function getHttpErrorView(int $statusCode): string
+    {
+        $template = "$statusCode.html";
+        return View::exists($template) ? $template : 'error.http.html';
+    }
 }
