@@ -29,12 +29,12 @@ class Renderer
     public function render(Throwable $exception): void
     {
         $this->registerViewPaths();
+        $code = $this->getStatusCode($exception);
+        http_response_code($code);
 
         if ($this->isDebug()) {
             View::render('error.trace.html', $this->getDetails($exception));
         } else {
-            $code = $this->getStatusCode($exception);
-            http_response_code($code);
             View::render($this->getHttpErrorView($code), ['code' => $code]);
         }
     }
