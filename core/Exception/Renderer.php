@@ -31,7 +31,7 @@ class Renderer
         $this->registerViewPaths();
 
         if ($this->isDebug()) {
-            View::render('error.html', $this->getDetails($exception));
+            View::render('error.trace.html', $this->getDetails($exception));
         } else {
             $code = $this->getStatusCode($exception);
             http_response_code($code);
