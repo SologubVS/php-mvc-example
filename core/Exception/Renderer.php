@@ -35,7 +35,7 @@ class Renderer
         } else {
             $code = $this->getStatusCode($exception);
             http_response_code($code);
-            View::render("$code.html");
+            View::render($this->getHttpErrorView($code), ['code' => $code]);
         }
     }
 
