@@ -3,6 +3,9 @@
 namespace Core;
 
 use Psr\Log\AbstractLogger;
+use Psr\Log\InvalidArgumentException;
+use Psr\Log\LogLevel;
+use ReflectionClass;
 
 class Logger extends AbstractLogger
 {
@@ -35,5 +38,20 @@ class Logger extends AbstractLogger
      */
     public function log($level, $message, array $context = []): void
     {
+        if (!$this->isLevelValid($level)) {
+            throw new InvalidArgumentException("Level '$level' is not defined.");
+        }
+    }
+
+    /**
+     * Check if the log level is defined by the PSR-3 specification.
+     *
+     * @param string $level Log level.
+     * @return bool True if defined, false otherwise.
+     */
+    protected function isLevelValid(string $level): bool
+    {
+        $reflection = new ReflectionClass(LogLevel::class);
+        return in_array($level, $reflection->getConstants());
     }
 }
