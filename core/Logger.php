@@ -54,4 +54,26 @@ class Logger extends AbstractLogger
         $reflection = new ReflectionClass(LogLevel::class);
         return in_array($level, $reflection->getConstants());
     }
+
+    /**
+     * Interpolate context values into the message placeholders.
+     *
+     * @param string $message Log message.
+     * @param array $context Context data.
+     * @return string Message with replaced placeholders.
+     */
+    protected function interpolate(string $message, array $context = []): string
+    {
+        if (strpos($message, '{') === false || empty($context)) {
+            return $message;
+        }
+
+        $replace = [];
+        foreach ($context as $placeholder => $value) {
+            if (is_scalar($value) || (is_object($value) && method_exists($value, '__toString'))) {
+                $replace['{' . $placeholder . '}'] = $value;
+            }
+        }
+        return strtr($message, $replace);
+    }
 }
