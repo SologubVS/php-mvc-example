@@ -56,6 +56,20 @@ class Logger extends AbstractLogger
     }
 
     /**
+     * Create file directory if it doesn't exist.
+     *
+     * @param string $path Absolute path to the file.
+     * @return void
+     */
+    protected function createDirectory(string $path): void
+    {
+        $directory = dirname($path);
+        if (!is_dir($directory)) {
+            mkdir($directory, 0777, true);
+        }
+    }
+
+    /**
      * Interpolate context values into the message placeholders.
      *
      * @param string $message Log message.
