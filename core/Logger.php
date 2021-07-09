@@ -41,6 +41,9 @@ class Logger extends AbstractLogger
         if (!$this->isLevelValid($level)) {
             throw new InvalidArgumentException("Level '$level' is not defined.");
         }
+
+        $record = $this->format($level, (string) $message, $context);
+        $this->write($record);
     }
 
     /**
