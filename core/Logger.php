@@ -56,6 +56,20 @@ class Logger extends AbstractLogger
     }
 
     /**
+     * Prepare a log record.
+     *
+     * @param string $level Log level.
+     * @param string $message Log message.
+     * @param array $context Context data.
+     * @return string Log record.
+     */
+    protected function format(string $level, string $message, array $context = []): string
+    {
+        $format = '[%s] %s: %s' . PHP_EOL;
+        return sprintf($format, date('Y-m-d H:i:s'), strtoupper($level), $this->interpolate($message, $context));
+    }
+
+    /**
      * Create file directory if it doesn't exist.
      *
      * @param string $path Absolute path to the file.
