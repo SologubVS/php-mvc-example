@@ -70,6 +70,18 @@ class Logger extends AbstractLogger
     }
 
     /**
+     * Write a log record to the log file.
+     *
+     * @param string $record Log record.
+     * @return void
+     */
+    protected function write(string $record): void
+    {
+        $this->createDirectory($this->path);
+        file_put_contents($this->path, $record, FILE_APPEND);
+    }
+
+    /**
      * Create file directory if it doesn't exist.
      *
      * @param string $path Absolute path to the file.
