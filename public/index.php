@@ -7,7 +7,7 @@ Dotenv\Dotenv::createImmutable(dirname(__DIR__))->safeLoad();
 Core\View::addPath(__DIR__ . '/../app/views');
 
 $isDebug = Core\Exception\Debug\Environment::get();
-$handler = new Core\Exception\Handler($isDebug);
+$handler = new Core\Exception\Handler(new Core\Logger(__DIR__ . '/../logs/app.log'), $isDebug);
 $handler->register();
 
 $router = new Core\Router();

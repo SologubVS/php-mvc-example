@@ -5,6 +5,7 @@ namespace Core\Exception;
 use Core\Exception\Debug\DebugTrait;
 use ErrorException;
 use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 class Handler
@@ -15,10 +16,12 @@ class Handler
     /**
      * Create a new exception handler.
      *
+     * @param \Psr\Log\LoggerInterface $logger Instance of the logger.
      * @param bool $debug Use debug mode.
      */
-    public function __construct(bool $debug = false)
+    public function __construct(LoggerInterface $logger, bool $debug = false)
     {
+        $this->setLogger($logger);
         $this->setDebug($debug);
     }
 
