@@ -82,8 +82,9 @@ class Handler
     protected function report(Throwable $exception): void
     {
         if (ini_get('log_errors')) {
-            error_log("Fatal error: Uncaught $exception");
+            error_log("PHP Fatal error: Uncaught $exception");
         }
+        $this->logger->error($exception);
     }
 
     /**
