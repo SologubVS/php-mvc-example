@@ -4,11 +4,13 @@ namespace Core\Exception;
 
 use Core\Exception\Debug\DebugTrait;
 use ErrorException;
+use Psr\Log\LoggerAwareTrait;
 use Throwable;
 
 class Handler
 {
     use DebugTrait;
+    use LoggerAwareTrait;
 
     /**
      * Create a new exception handler.
