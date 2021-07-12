@@ -5,6 +5,8 @@ Thumbs.db
 /vendor
 /logs
 
+docker-compose.override.yml
+
 .vscode/*
 !.vscode/extensions.json
 !.vscode/launch.json
