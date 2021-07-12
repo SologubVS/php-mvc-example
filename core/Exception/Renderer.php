@@ -53,7 +53,7 @@ class Renderer
      * Get basic info about an exception as an array.
      *
      * @param \Throwable $exception Exception to extract details from.
-     * @return array
+     * @return array Exception basic info.
      */
     protected function getDetails(Throwable $exception): array
     {

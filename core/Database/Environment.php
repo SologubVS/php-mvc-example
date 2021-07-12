@@ -45,7 +45,7 @@ class Environment
      * The following associative array elements are returned:
      * host, port, database, username, and password.
      *
-     * @return array
+     * @return array Connection configuration options.
      */
     public static function get(): array
     {

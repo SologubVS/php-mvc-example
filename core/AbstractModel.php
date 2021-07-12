@@ -18,7 +18,7 @@ abstract class AbstractModel
     /**
      * Get the current PDO connection.
      *
-     * @return \PDO
+     * @return \PDO The active PDO connection.
      */
     protected static function getPdo(): PDO
     {
@@ -31,7 +31,7 @@ abstract class AbstractModel
     /**
      * Create a new PDO connection.
      *
-     * @return \PDO
+     * @return \PDO New PDO connection instance.
      */
     protected static function createPdo(): PDO
     {

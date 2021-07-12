@@ -10,7 +10,7 @@ class Database extends AbstractModel
     /**
      * Get all databases as an array.
      *
-     * @return array
+     * @return array An associative array of databases info.
      */
     public static function all(): array
     {

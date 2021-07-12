@@ -57,7 +57,7 @@ class Router
     /**
      * Get all the routes from the routing table.
      *
-     * @return array
+     * @return array Array of routes.
      */
     public function getRoutes(): array
     {
@@ -173,7 +173,7 @@ class Router
     /**
      * Get the currently matched parameters.
      *
-     * @return array
+     * @return array Parameters from the matched route.
      */
     public function getParams(): array
     {

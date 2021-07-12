@@ -9,7 +9,7 @@ class Post extends AbstractModel
     /**
      * Get all posts as an array.
      *
-     * @return array
+     * @return array An associative array of posts info.
      */
     public static function all(): array
     {
