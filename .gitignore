@@ -9,3 +9,5 @@ Thumbs.db
 !.vscode/extensions.json
 !.vscode/launch.json
 !.vscode/settings.json.default
+/.devcontainer.json
+/.devcontainer/devcontainer.json
