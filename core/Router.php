@@ -16,6 +16,15 @@ class Router
     protected const DEFAULT_CONTROLLER_NS = 'App\Controllers\\';
 
     /**
+     * Controllers namespace.
+     *
+     * Relative controller names will be prefixed with this namespace.
+     *
+     * @var string
+     */
+    protected $namespace = '';
+
+    /**
      * Array of routes (the routing table).
      *
      * @var array
@@ -28,6 +37,16 @@ class Router
      * @var array
      */
     protected $params = [];
+
+    /**
+     * Create a new router.
+     *
+     * @param string $namespace Controllers namespace.
+     */
+    public function __construct(string $namespace = '')
+    {
+        $this->namespace = rtrim($namespace, '\\');
+    }
 
     /**
      * Add a route to the routing table.
@@ -108,7 +127,7 @@ class Router
                 return str_replace('-', '', ucwords($string, '-'));
             };
             $controllerName = $toPascalCase($this->params['controller']);
-            $controllerName = $this->getNamespace() . $controllerName;
+            $controllerName = $this->addNamespace($controllerName);
 
             if (class_exists($controllerName)) {
                 $controller = new $controllerName($this->params);
@@ -150,6 +169,20 @@ class Router
             }
         }
         return $url;
+    }
+
+    /**
+     * Add controllers namespace to relative class name.
+     *
+     * @param string $class Relative class name.
+     * @return string Class name prefixed with controllers namespace.
+     */
+    protected function addNamespace(string $class): string
+    {
+        if ($this->namespace !== '' && strpos($class, '\\') !== 0) {
+            return $this->namespace . '\\' . $class;
+        }
+        return $class;
     }
 
     /**
