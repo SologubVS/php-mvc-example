@@ -7,15 +7,6 @@ use Core\Exception\HttpException;
 class Router
 {
     /**
-     * Default controller namespace.
-     *
-     * Must contain a trailing slash.
-     *
-     * @var string
-     */
-    protected const DEFAULT_CONTROLLER_NS = 'App\Controllers\\';
-
-    /**
      * Controllers namespace.
      *
      * Relative controller names will be prefixed with this namespace.
@@ -183,24 +174,6 @@ class Router
             return $this->namespace . '\\' . $class;
         }
         return $class;
-    }
-
-    /**
-     * Get the full namespace for a controller class.
-     *
-     * The sub-namespace defined in the route parameters
-     * is added to default namespace.
-     *
-     * @return string Full controller namespace.
-     */
-    protected function getNamespace(): string
-    {
-        $namespace = static::DEFAULT_CONTROLLER_NS;
-        if (isset($this->params['namespace'])) {
-            $subNamespace = ucwords($this->params['namespace'], '\\');
-            $namespace .= "$subNamespace\\";
-        }
-        return $namespace;
     }
 
     /**
