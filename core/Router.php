@@ -77,12 +77,8 @@ class Router
         foreach ($this->routes as $route => $params) {
             if (preg_match($route, $path, $matches)) {
 
-                foreach ($matches as $key => $match) {
-                    if (is_string($key)) {
-                        $params[$key] = $match;
-                    }
-                }
-                $this->params = $params;
+                $matches = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+                $this->params = array_merge($matches, $params);
                 return true;
             }
         }
