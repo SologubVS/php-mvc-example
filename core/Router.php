@@ -7,6 +7,24 @@ use Core\Exception\HttpException;
 class Router
 {
     /**
+     * Controller parameter name.
+     *
+     * Used to extract the controller from route parameters.
+     *
+     * @var string
+     */
+    public const CONTROLLER = 'controller';
+
+    /**
+     * Controller action parameter name.
+     *
+     * Used to extract controller action from route parameters.
+     *
+     * @var string
+     */
+    public const ACTION = 'action';
+
+    /**
      * Controllers namespace.
      *
      * Relative controller names will be prefixed with this namespace.
@@ -64,8 +82,14 @@ class Router
      * the value of a variable. It is possible to specify a different
      * regular expression using the {variable:[a-z-]+} syntax.
      *
-     * @param string $route The route URL.
-     * @param array $params Parameters (controller, action, etc.).
+     * Route parameters must contain the controller and action
+     * under the appropriate keys. Values in the parameters array take
+     * precedence over the values retrieved from the route string.
+     * @see \Core\Router::CONTROLLER
+     * @see \Core\Router::ACTION
+     *
+     * @param string $route The route path.
+     * @param array $params Route parameters.
      * @return void
      */
     public function add(string $route, array $params = []): void
@@ -110,9 +134,12 @@ class Router
      */
     protected function parseParams(array $params): void
     {
-        [$this->controller, $this->action] = [$params['controller'] ?? '', $params['action'] ?? ''];
+        [$this->controller, $this->action] = [
+            $params[static::CONTROLLER] ?? '',
+            $params[static::ACTION]     ?? '',
+        ];
 
-        unset($params['controller'], $params['action']);
+        unset($params[static::CONTROLLER], $params[static::ACTION]);
         $this->params = $params;
     }
 
