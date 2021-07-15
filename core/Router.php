@@ -81,7 +81,7 @@ class Router
     /**
      * Match a route path to the routes in the routing table.
      *
-     * Setting the parameters property if a route is found.
+     * Setting the appropriate properties if a route is found.
      *
      * @param string $path The route path.
      * @return bool True if match found, false otherwise.
@@ -92,7 +92,7 @@ class Router
             if (preg_match($route, $path, $matches)) {
 
                 $matches = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-                $this->params = array_merge($matches, $params);
+                $this->parseParams(array_merge($matches, $params));
                 return true;
             }
         }
@@ -134,12 +134,12 @@ class Router
             $toPascalCase = function (string $string): string {
                 return str_replace('-', '', ucwords($string, '-'));
             };
-            $controllerName = $toPascalCase($this->params['controller']);
+            $controllerName = $toPascalCase($this->controller);
             $controllerName = $this->addNamespace($controllerName);
 
             if (class_exists($controllerName)) {
                 $controller = new $controllerName($this->params);
-                $action = lcfirst($toPascalCase($this->params['action']));
+                $action = lcfirst($toPascalCase($this->action));
 
                 $suffix = AbstractController::ACTION_NAME_SUFFIX;
                 if (!preg_match("/$suffix$/i", $action)) {
