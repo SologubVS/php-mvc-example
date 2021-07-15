@@ -11,12 +11,12 @@ $handler = new Core\Exception\Handler(new Core\Logger(__DIR__ . '/../logs/app.lo
 $handler->register();
 
 $router = new Core\Router('App\Controllers');
-$router->add('', [
+$router->add('/', [
     'controller' => 'home',
     'action' => 'index',
 ]);
-$router->add('{controller}', [
+$router->add('/{controller}', [
     'action' => 'index',
 ]);
-$router->add('{controller}/{action}');
-$router->dispatch($_SERVER['QUERY_STRING']);
+$router->add('/{controller}/{action}');
+$router->dispatch($_SERVER['REQUEST_URI']);

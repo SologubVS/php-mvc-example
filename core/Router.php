@@ -75,17 +75,17 @@ class Router
     }
 
     /**
-     * Match a URL to the routes in the routing table.
+     * Match a route path to the routes in the routing table.
      *
      * Setting the parameters property if a route is found.
      *
-     * @param string $url The route URL.
+     * @param string $path The route path.
      * @return bool True if match found, false otherwise.
      */
-    public function match(string $url): bool
+    public function match(string $path): bool
     {
         foreach ($this->routes as $route => $params) {
-            if (preg_match($route, $url, $matches)) {
+            if (preg_match($route, $path, $matches)) {
 
                 foreach ($matches as $key => $match) {
                     if (is_string($key)) {
@@ -104,16 +104,16 @@ class Router
      *
      * Creating the controller object and running the action method.
      *
-     * @param string $url The route URL.
+     * @param string $url The request URL.
      * @return void
      *
      * @throws \Core\Exception\HttpException
      */
     public function dispatch(string $url): void
     {
-        $url = $this->removeQueryStringVars($url);
+        $route = $this->getRoutePath($url);
 
-        if ($this->match($url)) {
+        if ($this->match($route)) {
             $toPascalCase = function (string $string): string {
                 return str_replace('-', '', ucwords($string, '-'));
             };
@@ -136,6 +136,17 @@ class Router
         } else {
             throw new HttpException(404, 'No route matched.');
         }
+    }
+
+    /**
+     * Get the route path from the request URL.
+     *
+     * @param string $url The request URL.
+     * @return string The route path.
+     */
+    protected function getRoutePath(string $url): string
+    {
+        return parse_url($url, PHP_URL_PATH) ?: '/';
     }
 
     /**
