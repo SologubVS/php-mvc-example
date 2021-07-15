@@ -16,6 +16,20 @@ class Router
     protected $namespace = '';
 
     /**
+     * Controller name.
+     *
+     * @var string
+     */
+    protected $controller = '';
+
+    /**
+     * Controller action name.
+     *
+     * @var string
+     */
+    protected $action = '';
+
+    /**
      * Array of routes (the routing table).
      *
      * @var array
@@ -83,6 +97,23 @@ class Router
             }
         }
         return false;
+    }
+
+    /**
+     * Parse route parameters.
+     *
+     * Extract controller and action names from the array
+     * of parameters and set them to the properties.
+     *
+     * @param array $params Route parameters.
+     * @return void
+     */
+    protected function parseParams(array $params): void
+    {
+        [$this->controller, $this->action] = [$params['controller'] ?? '', $params['action'] ?? ''];
+
+        unset($params['controller'], $params['action']);
+        $this->params = $params;
     }
 
     /**
