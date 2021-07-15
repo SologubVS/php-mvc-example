@@ -65,16 +65,6 @@ class Router
     }
 
     /**
-     * Get all the routes from the routing table.
-     *
-     * @return array Array of routes.
-     */
-    public function getRoutes(): array
-    {
-        return $this->routes;
-    }
-
-    /**
      * Match a route path to the routes in the routing table.
      *
      * Setting the parameters property if a route is found.
@@ -150,30 +140,6 @@ class Router
     }
 
     /**
-     * Remove the query string variables from the URL.
-     *
-     * As the full query string is used for the route, any
-     * variables at the end will need to be removed before
-     * the route is matched to the routing table.
-     *
-     * @param string $url The route URL.
-     * @return string The URL with the query string variables removed.
-     */
-    protected function removeQueryStringVars(string $url): string
-    {
-        if ($url != '') {
-            $parts = explode('&', $url, 2);
-
-            if (strpos($parts[0], '=') === false) {
-                $url = $parts[0];
-            } else {
-                $url = '';
-            }
-        }
-        return $url;
-    }
-
-    /**
      * Add controllers namespace to relative class name.
      *
      * @param string $class Relative class name.
@@ -185,15 +151,5 @@ class Router
             return $this->namespace . '\\' . $class;
         }
         return $class;
-    }
-
-    /**
-     * Get the currently matched parameters.
-     *
-     * @return array Parameters from the matched route.
-     */
-    public function getParams(): array
-    {
-        return $this->params;
     }
 }
