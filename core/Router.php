@@ -144,6 +144,29 @@ class Router
     }
 
     /**
+     * Prepare controller name and action name.
+     *
+     * Set the prepared controller name and action
+     * name to the appropriate properties.
+     *
+     * @param string $controller Controller name.
+     * @param string $action Controller action name.
+     * @return void
+     */
+    protected function prepareMethod(string $controller, string $action): void
+    {
+        foreach ([&$controller, &$action] as &$string) {
+            if (strpos($string, '-') !== false) {
+                $string = str_replace('-', '', ucwords($string, '-'));
+            }
+        }
+        [$this->controller, $this->action] = [
+            $this->addNamespace(ucfirst($controller)),
+            lcfirst($action),
+        ];
+    }
+
+    /**
      * Dispatch the route.
      *
      * Creating the controller object and running the action method.
