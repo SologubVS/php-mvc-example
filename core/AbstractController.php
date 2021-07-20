@@ -31,28 +31,6 @@ abstract class AbstractController
     }
 
     /**
-     * Call action methods with before and after filters.
-     *
-     * @param string $name The name of the method.
-     * @param array $arguments Parameters passed to the method.
-     * @return mixed
-     *
-     * @throws \Core\Exception\HttpException
-     */
-    public function __call(string $name, array $arguments)
-    {
-        $actionMethod = $name . static::ACTION_NAME_SUFFIX;
-        if (method_exists($this, $actionMethod)) {
-            if ($this->before() !== false) {
-                call_user_func_array([$this, $actionMethod], $arguments);
-                $this->after();
-            }
-        } else {
-            throw new HttpException(404, "Method $actionMethod (in controller " . get_class($this) . ') not found.');
-        }
-    }
-
-    /**
      * Call action method with before and after filters.
      *
      * @param string $action The name of the action.

@@ -168,12 +168,7 @@ class Router
                 $controller = new $controllerName($this->params);
                 $action = lcfirst($toPascalCase($this->action));
 
-                $suffix = AbstractController::ACTION_NAME_SUFFIX;
-                if (!preg_match("/$suffix$/i", $action)) {
-                    $controller->$action();
-                } else {
-                    throw new HttpException(404, "Method $action (in controller $controllerName) not found.");
-                }
+                $controller->callAction($action);
             } else {
                 throw new HttpException(404, "Controller class $controllerName not found.");
             }
