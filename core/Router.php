@@ -103,6 +103,43 @@ class Router
     }
 
     /**
+     * Dispatch the route.
+     *
+     * Creating the controller object and running the action method.
+     *
+     * @param string $url The request URL.
+     * @return void
+     *
+     * @throws \Core\Exception\HttpException
+     */
+    public function dispatch(string $url): void
+    {
+        $route = $this->getRoutePath($url);
+
+        if ($this->match($route)) {
+            if (class_exists($this->controller)) {
+                $controller = new $this->{'controller'}($this->params);
+                $controller->callAction($this->action);
+            } else {
+                throw new HttpException(404, "Controller class '{$this->controller}' not found.");
+            }
+        } else {
+            throw new HttpException(404, 'No route matched.');
+        }
+    }
+
+    /**
+     * Get the route path from the request URL.
+     *
+     * @param string $url The request URL.
+     * @return string The route path.
+     */
+    protected function getRoutePath(string $url): string
+    {
+        return parse_url($url, PHP_URL_PATH) ?: '/';
+    }
+
+    /**
      * Match a route path to the routes in the routing table.
      *
      * Setting the appropriate properties if a route is found.
@@ -110,11 +147,10 @@ class Router
      * @param string $path The route path.
      * @return bool True if match found, false otherwise.
      */
-    public function match(string $path): bool
+    protected function match(string $path): bool
     {
         foreach ($this->routes as $route => $params) {
             if (preg_match($route, $path, $matches)) {
-
                 $matches = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
                 $this->parseParams(array_merge($matches, $params));
                 return true;
@@ -160,43 +196,6 @@ class Router
             $controller = $this->addNamespace(ucfirst($controller));
         }
         [$this->controller, $this->action] = [ltrim($controller, '\\'), lcfirst($action)];
-    }
-
-    /**
-     * Dispatch the route.
-     *
-     * Creating the controller object and running the action method.
-     *
-     * @param string $url The request URL.
-     * @return void
-     *
-     * @throws \Core\Exception\HttpException
-     */
-    public function dispatch(string $url): void
-    {
-        $route = $this->getRoutePath($url);
-
-        if ($this->match($route)) {
-            if (class_exists($this->controller)) {
-                $controller = new $this->{'controller'}($this->params);
-                $controller->callAction($this->action);
-            } else {
-                throw new HttpException(404, "Controller class '{$this->controller}' not found.");
-            }
-        } else {
-            throw new HttpException(404, 'No route matched.');
-        }
-    }
-
-    /**
-     * Get the route path from the request URL.
-     *
-     * @param string $url The request URL.
-     * @return string The route path.
-     */
-    protected function getRoutePath(string $url): string
-    {
-        return parse_url($url, PHP_URL_PATH) ?: '/';
     }
 
     /**
