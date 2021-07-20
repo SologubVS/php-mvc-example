@@ -53,6 +53,29 @@ abstract class AbstractController
     }
 
     /**
+     * Call action method with before and after filters.
+     *
+     * @param string $action The name of the action.
+     * @return void
+     *
+     * @throws \Core\Exception\HttpException
+     */
+    public function callAction(string $action): void
+    {
+        $suffix = static::ACTION_NAME_SUFFIX;
+        $method = preg_match("/{$suffix}$/i", $action) ? $action : $action . $suffix;
+
+        if (method_exists($this, $method)) {
+            if ($this->before() !== false) {
+                $this->{$method}();
+                $this->after();
+            }
+        } else {
+            throw new HttpException(404, "Method $method (in controller " . get_class($this) . ') not found.');
+        }
+    }
+
+    /**
      * Before filter.
      *
      * Called before an action method.
