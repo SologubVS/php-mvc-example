@@ -156,10 +156,10 @@ class Router
                 $string = str_replace('-', '', ucwords($string, '-'));
             }
         }
-        [$this->controller, $this->action] = [
-            $this->addNamespace(ucfirst($controller)),
-            lcfirst($action),
-        ];
+        if ($controller !== '') {
+            $controller = $this->addNamespace(ucfirst($controller));
+        }
+        [$this->controller, $this->action] = [ltrim($controller, '\\'), lcfirst($action)];
     }
 
     /**
