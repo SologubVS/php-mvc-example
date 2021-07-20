@@ -134,11 +134,7 @@ class Router
      */
     protected function parseParams(array $params): void
     {
-        [$this->controller, $this->action] = [
-            $params[static::CONTROLLER] ?? '',
-            $params[static::ACTION]     ?? '',
-        ];
-
+        $this->prepareMethod($params[static::CONTROLLER] ?? '', $params[static::ACTION] ?? '');
         unset($params[static::CONTROLLER], $params[static::ACTION]);
         $this->params = $params;
     }
@@ -181,19 +177,11 @@ class Router
         $route = $this->getRoutePath($url);
 
         if ($this->match($route)) {
-            $toPascalCase = function (string $string): string {
-                return str_replace('-', '', ucwords($string, '-'));
-            };
-            $controllerName = $toPascalCase($this->controller);
-            $controllerName = $this->addNamespace($controllerName);
-
-            if (class_exists($controllerName)) {
-                $controller = new $controllerName($this->params);
-                $action = lcfirst($toPascalCase($this->action));
-
-                $controller->callAction($action);
+            if (class_exists($this->controller)) {
+                $controller = new $this->{'controller'}($this->params);
+                $controller->callAction($this->action);
             } else {
-                throw new HttpException(404, "Controller class $controllerName not found.");
+                throw new HttpException(404, "Controller class '{$this->controller}' not found.");
             }
         } else {
             throw new HttpException(404, 'No route matched.');
