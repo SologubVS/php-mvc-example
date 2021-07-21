@@ -4,7 +4,7 @@ namespace Core;
 
 use Core\Exception\HttpException;
 
-abstract class AbstractController
+abstract class AbstractController implements ControllerInterface
 {
     /**
      * Action method name suffix.
@@ -53,6 +53,14 @@ abstract class AbstractController
         } else {
             throw new HttpException(404, sprintf('Action \'%s\' not found in \'%s\'.', $action, get_class($this)));
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setParameters(array $params): void
+    {
+        $this->routeParams = $params;
     }
 
     /**
