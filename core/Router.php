@@ -115,14 +115,10 @@ class Router
     public function dispatch(string $url): void
     {
         $route = $this->getRoutePath($url);
-
         if ($this->match($route)) {
-            if (class_exists($this->controller)) {
-                $controller = new $this->{'controller'}($this->params);
-                $controller->callAction($this->action);
-            } else {
-                throw new HttpException(404, "Controller class '{$this->controller}' not found.");
-            }
+            $controller = $this->createController($this->controller);
+            $controller->setParameters($this->params);
+            $controller->callAction($this->action);
         } else {
             throw new HttpException(404, 'No route matched.');
         }
@@ -157,6 +153,22 @@ class Router
             }
         }
         return false;
+    }
+
+    /**
+     * Create an instance of the controller class.
+     *
+     * @param string $class Controller class name.
+     * @return \Core\ControllerInterface Controller instance.
+     *
+     * @throws \Core\Exception\HttpException
+     */
+    protected function createController(string $class): ControllerInterface
+    {
+        if (!class_exists($class)) {
+            throw new HttpException(404, "Controller class '$class' not found.");
+        }
+        return new $class();
     }
 
     /**

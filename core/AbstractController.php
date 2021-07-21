@@ -21,16 +21,6 @@ abstract class AbstractController implements ControllerInterface
     protected $routeParams = [];
 
     /**
-     * Create a new controller.
-     *
-     * @param array $routeParams Parameters from the matched route.
-     */
-    public function __construct(array $routeParams)
-    {
-        $this->routeParams = $routeParams;
-    }
-
-    /**
      * Call action method with before and after filters.
      *
      * @param string $action The name of the action.
