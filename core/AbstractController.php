@@ -21,6 +21,13 @@ abstract class AbstractController implements ControllerInterface
     protected $routeParams = [];
 
     /**
+     * Parameters from the request URL.
+     *
+     * @var array
+     */
+    protected $queryParams = [];
+
+    /**
      * Call action method with before and after filters.
      *
      * @param string $action The name of the action.
@@ -48,9 +55,10 @@ abstract class AbstractController implements ControllerInterface
     /**
      * {@inheritdoc}
      */
-    public function setParameters(array $params): void
+    public function setParameters(array $route, array $query): void
     {
-        $this->routeParams = $params;
+        $this->routeParams = $route;
+        $this->queryParams = $query;
     }
 
     /**

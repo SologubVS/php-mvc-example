@@ -135,7 +135,7 @@ class Router
         }
 
         $controller = $this->createController($this->controller);
-        $controller->setParameters($this->params);
+        $controller->setParameters($this->params, $this->query);
         $controller->callAction($this->action);
     }
 

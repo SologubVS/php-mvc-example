@@ -15,10 +15,11 @@ interface ControllerInterface
     public function callAction(string $action): void;
 
     /**
-     * Set parameters from the matched route.
+     * Set parameters from the matched route and request URL.
      *
-     * @param array $params An associative array of parameters.
+     * @param array $route Route parameters.
+     * @param array $query Query parameters.
      * @return void
      */
-    public function setParameters(array $params): void;
+    public function setParameters(array $route, array $query): void;
 }
