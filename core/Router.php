@@ -129,13 +129,14 @@ class Router
     public function dispatch(string $url): void
     {
         $this->parseUrl($url);
-        if ($this->match($this->path)) {
-            $controller = $this->createController($this->controller);
-            $controller->setParameters($this->params);
-            $controller->callAction($this->action);
-        } else {
+
+        if (!$this->match($this->path)) {
             throw new HttpException(404, 'No route matched.');
         }
+
+        $controller = $this->createController($this->controller);
+        $controller->setParameters($this->params);
+        $controller->callAction($this->action);
     }
 
     /**

@@ -35,13 +35,13 @@ abstract class AbstractController implements ControllerInterface
             $action .= $suffix;
         }
 
-        if (method_exists($this, $action)) {
-            if ($this->before() !== false) {
-                $this->{$action}();
-                $this->after();
-            }
-        } else {
+        if (!method_exists($this, $action)) {
             throw new HttpException(404, sprintf('Action \'%s\' not found in \'%s\'.', $action, get_class($this)));
+        }
+
+        if ($this->before() !== false) {
+            $this->{$action}();
+            $this->after();
         }
     }
 
