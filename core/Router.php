@@ -128,8 +128,8 @@ class Router
      */
     public function dispatch(string $url): void
     {
-        $route = $this->getRoutePath($url);
-        if ($this->match($route)) {
+        $this->parseUrl($url);
+        if ($this->match($this->path)) {
             $controller = $this->createController($this->controller);
             $controller->setParameters($this->params);
             $controller->callAction($this->action);
@@ -155,17 +155,6 @@ class Router
         if (isset($components['query'])) {
             parse_str(html_entity_decode($components['query']), $this->query);
         }
-    }
-
-    /**
-     * Get the route path from the request URL.
-     *
-     * @param string $url The request URL.
-     * @return string The route path.
-     */
-    protected function getRoutePath(string $url): string
-    {
-        return parse_url($url, PHP_URL_PATH) ?: '/';
     }
 
     /**
