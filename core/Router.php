@@ -55,6 +55,20 @@ class Router
     protected $routes = [];
 
     /**
+     * The route path from the request URL.
+     *
+     * @var string
+     */
+    protected $path = '';
+
+    /**
+     * Query parameters from the request URL.
+     *
+     * @var array
+     */
+    protected $query = [];
+
+    /**
      * Parameters from the matched route.
      *
      * @var array
@@ -121,6 +135,25 @@ class Router
             $controller->callAction($this->action);
         } else {
             throw new HttpException(404, 'No route matched.');
+        }
+    }
+
+    /**
+     * Parse request URL.
+     *
+     * Extract the URL path and an array of URL query
+     * parameters and set them to the properties.
+     *
+     * @param string $url The request URL.
+     * @return void
+     */
+    protected function parseUrl(string $url): void
+    {
+        $components = parse_url($url);
+        $this->path = $components['path'] ?: '/';
+
+        if (isset($components['query'])) {
+            parse_str(html_entity_decode($components['query']), $this->query);
         }
     }
 
