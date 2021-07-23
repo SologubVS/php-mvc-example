@@ -7,24 +7,6 @@ use Core\Exception\HttpException;
 class Router
 {
     /**
-     * Controller parameter name.
-     *
-     * Used to extract the controller from route parameters.
-     *
-     * @var string
-     */
-    public const CONTROLLER = 'controller';
-
-    /**
-     * Controller action parameter name.
-     *
-     * Used to extract controller action from route parameters.
-     *
-     * @var string
-     */
-    public const ACTION = 'action';
-
-    /**
      * Controllers namespace.
      *
      * Relative controller names will be prefixed with this namespace.
@@ -99,8 +81,8 @@ class Router
      * Route parameters must contain the controller and action
      * under the appropriate keys. Values in the parameters array take
      * precedence over the values retrieved from the route string.
-     * @see \Core\Router::CONTROLLER
-     * @see \Core\Router::ACTION
+     * @see \Core\RouteParameters::CONTROLLER
+     * @see \Core\RouteParameters::ACTION
      *
      * @param string $route The route path.
      * @param array $params Route parameters.
@@ -205,45 +187,13 @@ class Router
      */
     protected function parseParams(array $params): void
     {
-        $this->prepareMethod($params[static::CONTROLLER] ?? '', $params[static::ACTION] ?? '');
-        unset($params[static::CONTROLLER], $params[static::ACTION]);
+        $params = RouteParameters::prepare($params, $this->namespace);
+
+        [$this->controller, $this->action] = [
+            $params[RouteParameters::CONTROLLER] ?? '',
+            $params[RouteParameters::ACTION]     ?? '',
+        ];
+        unset($params[RouteParameters::CONTROLLER], $params[RouteParameters::ACTION]);
         $this->params = $params;
-    }
-
-    /**
-     * Prepare controller name and action name.
-     *
-     * Set the prepared controller name and action
-     * name to the appropriate properties.
-     *
-     * @param string $controller Controller name.
-     * @param string $action Controller action name.
-     * @return void
-     */
-    protected function prepareMethod(string $controller, string $action): void
-    {
-        foreach ([&$controller, &$action] as &$string) {
-            if (strpos($string, '-') !== false) {
-                $string = str_replace('-', '', ucwords($string, '-'));
-            }
-        }
-        if ($controller !== '') {
-            $controller = $this->addNamespace(ucfirst($controller));
-        }
-        [$this->controller, $this->action] = [ltrim($controller, '\\'), lcfirst($action)];
-    }
-
-    /**
-     * Add controllers namespace to relative class name.
-     *
-     * @param string $class Relative class name.
-     * @return string Class name prefixed with controllers namespace.
-     */
-    protected function addNamespace(string $class): string
-    {
-        if ($this->namespace !== '' && strpos($class, '\\') !== 0) {
-            return $this->namespace . '\\' . $class;
-        }
-        return $class;
     }
 }
