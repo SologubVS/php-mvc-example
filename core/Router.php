@@ -50,7 +50,7 @@ class Router
      */
     public function __construct(string $namespace = '')
     {
-        $this->namespace = rtrim($namespace, '\\');
+        $this->namespace = trim($namespace, '\\');
     }
 
     /**
