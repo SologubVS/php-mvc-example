@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Database;
-use Core\AbstractController;
+use Core\Routing\AbstractController;
 use Core\View;
 
 class Databases extends AbstractController

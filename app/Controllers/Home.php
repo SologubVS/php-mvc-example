@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use Core\AbstractController;
+use Core\Routing\AbstractController;
 use Core\View;
 
 class Home extends AbstractController

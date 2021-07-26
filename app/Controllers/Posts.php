@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Post;
-use Core\AbstractController;
+use Core\Routing\AbstractController;
 use Core\View;
 
 class Posts extends AbstractController

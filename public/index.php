@@ -10,7 +10,7 @@ $isDebug = Core\Exception\Debug\Environment::get();
 $handler = new Core\Exception\Handler(new Core\Logger(__DIR__ . '/../logs/app.log'), $isDebug);
 $handler->register();
 
-$router = new Core\Router('App\Controllers');
+$router = new Core\Routing\Router('App\Controllers');
 $router->add('/', [
     'controller' => 'home',
     'action' => 'index',
