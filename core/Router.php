@@ -16,20 +16,6 @@ class Router
     protected $namespace = '';
 
     /**
-     * Controller name.
-     *
-     * @var string
-     */
-    protected $controller = '';
-
-    /**
-     * Controller action name.
-     *
-     * @var string
-     */
-    protected $action = '';
-
-    /**
      * Array of routes (the routing table).
      *
      * @var array
@@ -116,9 +102,9 @@ class Router
             throw new HttpException(404, 'No route matched.');
         }
 
-        $controller = $this->createController($this->controller);
+        $controller = $this->createController($this->params[RouteParameters::CONTROLLER]);
         $controller->setParameters($this->params, $this->query);
-        $controller->callAction($this->action);
+        $controller->callAction($this->params[RouteParameters::ACTION]);
     }
 
     /**
@@ -153,7 +139,7 @@ class Router
         foreach ($this->routes as $route => $params) {
             if (preg_match($route, $path, $matches)) {
                 $matches = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-                $this->parseParams(array_merge($matches, $params));
+                $this->params = RouteParameters::prepare(array_merge($matches, $params), $this->namespace);
                 return true;
             }
         }
@@ -174,26 +160,5 @@ class Router
             throw new HttpException(404, "Controller class '$class' not found.");
         }
         return new $class();
-    }
-
-    /**
-     * Parse route parameters.
-     *
-     * Extract controller and action names from the array
-     * of parameters and set them to the properties.
-     *
-     * @param array $params Route parameters.
-     * @return void
-     */
-    protected function parseParams(array $params): void
-    {
-        $params = RouteParameters::prepare($params, $this->namespace);
-
-        [$this->controller, $this->action] = [
-            $params[RouteParameters::CONTROLLER] ?? '',
-            $params[RouteParameters::ACTION]     ?? '',
-        ];
-        unset($params[RouteParameters::CONTROLLER], $params[RouteParameters::ACTION]);
-        $this->params = $params;
     }
 }
