@@ -7,6 +7,15 @@ use Core\Exception\HttpException;
 class Router
 {
     /**
+     * The base path of the route.
+     *
+     * Route paths will be prefixed with this path.
+     *
+     * @var string
+     */
+    protected $base = '';
+
+    /**
      * Controllers namespace.
      *
      * Relative controller names will be prefixed with this namespace.
@@ -46,11 +55,13 @@ class Router
     /**
      * Create a new router.
      *
+     * @param string $base The base path of the route.
      * @param string $namespace Controllers namespace.
      */
-    public function __construct(string $namespace = '')
+    public function __construct(string $base = '/', string $namespace = '')
     {
-        $this->namespace = trim($namespace, '\\');
+        $this->base = $base;
+        $this->namespace = $namespace;
     }
 
     /**
