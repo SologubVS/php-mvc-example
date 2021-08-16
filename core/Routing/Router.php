@@ -68,7 +68,8 @@ class Router
      * Add a route to the routing table.
      *
      * Before being added to the routing table,
-     * the route string is converted to a regular expression,
+     * the route string is prefixed with the base path,
+     * then the route string is converted to a regular expression,
      * and can contain variables in the {variable} format.
      *
      * By default, the regular expression [a-z-]+ is used to retrieve
@@ -87,12 +88,26 @@ class Router
      */
     public function add(string $route, array $params = []): void
     {
+        $route = $this->addBasePath($this->base, $route);
+
         $route = str_replace('/', '\/', $route);
         $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
         $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
         $route = "/^$route\/?$/i";
 
         $this->routes[$route] = $params;
+    }
+
+    /**
+     * Add the base path to the route path.
+     *
+     * @param string $base The base path.
+     * @param string $route The route path.
+     * @return string The full path of the route.
+     */
+    protected function addBasePath(string $base, string $route): string
+    {
+        return $route === '' ? $base : rtrim($base, '/') . '/' . ltrim($route, '/');
     }
 
     /**
