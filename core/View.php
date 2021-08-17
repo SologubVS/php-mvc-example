@@ -8,6 +8,13 @@ use Twig\Loader\FilesystemLoader;
 class View
 {
     /**
+     * Templates environment configuration.
+     *
+     * @var \Twig\Environment
+     */
+    protected static $environment;
+
+    /**
      * Template file system loader.
      *
      * @var \Twig\Loader\FilesystemLoader
@@ -17,18 +24,21 @@ class View
     /**
      * Render a view template file.
      *
+     * @see \Twig\Environment::render()
+     *
      * @param string $template Relative path to the template file.
      * @param array $data Data passing into the view.
      * @return void
      */
     public static function render(string $template, array $data = []): void
     {
-        $twig = new Environment(static::getLoader());
-        echo $twig->render($template, $data);
+        echo static::getEnvironment()->render($template, $data);
     }
 
     /**
      * Add absolute path where to look for template files.
+     *
+     * @see \Twig\Loader\FilesystemLoader::addPath()
      *
      * @param string $path Absolute path to templates.
      * @return void
@@ -41,12 +51,30 @@ class View
     /**
      * Check if the template file exists at the specified path.
      *
+     * @see \Twig\Loader\FilesystemLoader::exists()
+     *
      * @param string $template Relative path to the template file.
      * @return bool True if the template file exists, false otherwise.
      */
     public static function exists(string $template): bool
     {
         return static::getLoader()->exists($template);
+    }
+
+    /**
+     * Get templates environment configuration instance.
+     *
+     * Create a new instance of the environment if it
+     * has not been instantiated yet.
+     *
+     * @return \Twig\Environment Templates environment configuration.
+     */
+    protected static function getEnvironment(): Environment
+    {
+        if (static::$environment === null) {
+            static::$environment = new Environment(static::getLoader());
+        }
+        return static::$environment;
     }
 
     /**
