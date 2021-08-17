@@ -36,6 +36,20 @@ class View
     }
 
     /**
+     * Register a global template variable.
+     *
+     * @see \Twig\Environment::addGlobal()
+     *
+     * @param string $name Variable name.
+     * @param mixed $value The value of the variable.
+     * @return void
+     */
+    public static function addGlobal(string $name, $value): void
+    {
+        static::getEnvironment()->addGlobal($name, $value);
+    }
+
+    /**
      * Add absolute path where to look for template files.
      *
      * @see \Twig\Loader\FilesystemLoader::addPath()
