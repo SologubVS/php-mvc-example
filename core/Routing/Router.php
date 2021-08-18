@@ -90,10 +90,10 @@ class Router
     {
         $route = $this->addBasePath($this->base, $route);
 
-        $route = str_replace('/', '\/', $route);
+        $route = str_replace('/', '\/', rtrim($route, '/') . '/?');
         $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
         $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
-        $route = "/^$route\/?$/i";
+        $route = "/^{$route}$/i";
 
         $this->routes[$route] = $params;
     }
