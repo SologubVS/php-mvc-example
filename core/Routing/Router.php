@@ -69,16 +69,14 @@ class Router
      *
      * Before being added to the routing table,
      * the route string is prefixed with the base path,
-     * then the route string is converted to a regular expression,
-     * and can contain variables in the {variable} format.
-     *
-     * By default, the regular expression [a-z-]+ is used to retrieve
-     * the value of a variable. It is possible to specify a different
-     * regular expression using the {variable:[a-z-]+} syntax.
+     * then the route string is converted to a regular expression
+     * and can contain variables.
      *
      * Route parameters must contain the controller and action
      * under the appropriate keys. Values in the parameters array take
      * precedence over the values retrieved from the route string.
+     *
+     * @see \Core\Routing\Router::convertRouteToRegex()
      * @see \Core\RouteParameters::CONTROLLER
      * @see \Core\RouteParameters::ACTION
      *
@@ -88,13 +86,9 @@ class Router
      */
     public function add(string $route, array $params = []): void
     {
-        $route = $this->addBasePath($this->base, $route);
-
-        $route = str_replace('/', '\/', rtrim($route, '/') . '/?');
-        $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
-        $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
-        $route = "/^{$route}$/i";
-
+        $route = $this->convertRouteToRegex(
+            $this->addBasePath($this->base, $route)
+        );
         $this->routes[$route] = $params;
     }
 
