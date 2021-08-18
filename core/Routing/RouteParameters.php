@@ -26,8 +26,8 @@ class RouteParameters
      * Prepare route parameters.
      *
      * Find and process parameter values for controller and action names.
-     * @see \Core\RouteParameters::CONTROLLER
-     * @see \Core\RouteParameters::ACTION
+     * @see \Core\Routing\RouteParameters::CONTROLLER
+     * @see \Core\Routing\RouteParameters::ACTION
      *
      * @param array $params Route parameters.
      * @param string $namespace Controllers namespace.
