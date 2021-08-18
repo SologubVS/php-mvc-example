@@ -99,6 +99,29 @@ class Router
     }
 
     /**
+     * Convert route string to regular expression.
+     *
+     * The route string can contain variables in the {variable} format.
+     *
+     * By default, the regular expression [a-z-]+ is used to retrieve
+     * the value of a variable. It is possible to specify a different
+     * regular expression using the {variable:[a-z-]+} syntax.
+     *
+     * @param string $route The route path.
+     * @return string Route string as regular expression.
+     */
+    protected function convertRouteToRegex(string $route): string
+    {
+        $route = str_replace('/', '\/', rtrim($route, '/') . '/?');
+
+        if (strpos($route, '{') !== false) {
+            $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
+            $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
+        }
+        return "/^{$route}$/i";
+    }
+
+    /**
      * Add the base path to the route path.
      *
      * @param string $base The base path.
