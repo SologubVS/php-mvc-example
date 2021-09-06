@@ -39,13 +39,6 @@ class Router
     protected $path = '';
 
     /**
-     * Query parameters from the request URL.
-     *
-     * @var array
-     */
-    protected $query = [];
-
-    /**
      * Parameters from the matched route.
      *
      * @var array
@@ -146,7 +139,7 @@ class Router
         }
 
         $controller = $this->createController($this->params[RouteParameters::CONTROLLER]);
-        $controller->setParameters($this->params, $this->query);
+        $controller->setParameters($this->params, $this->getQueryParameters($url));
         $controller->callAction($this->params[RouteParameters::ACTION]);
     }
 
@@ -163,10 +156,18 @@ class Router
     {
         $components = parse_url($url);
         $this->path = $components['path'] ?: '/';
+    }
 
-        if (isset($components['query'])) {
-            parse_str(html_entity_decode($components['query']), $this->query);
-        }
+    /**
+     * Get query parameters from the request URL as an array.
+     *
+     * @param string $url The request URL.
+     * @return array Query parameters.
+     */
+    public static function getQueryParameters(string $url): array
+    {
+        parse_str(html_entity_decode(parse_url($url, PHP_URL_QUERY)), $query);
+        return $query;
     }
 
     /**
