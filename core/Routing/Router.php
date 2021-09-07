@@ -32,13 +32,6 @@ class Router
     protected $routes = [];
 
     /**
-     * The route path from the request URL.
-     *
-     * @var string
-     */
-    protected $path = '';
-
-    /**
      * Parameters from the matched route.
      *
      * @var array
@@ -132,30 +125,13 @@ class Router
      */
     public function dispatch(string $url): void
     {
-        $this->parseUrl($url);
-
-        if (!$this->match($this->path)) {
+        if (!$this->match(parse_url($url, PHP_URL_PATH))) {
             throw new HttpException(404, 'No route matched.');
         }
 
         $controller = $this->createController($this->params[RouteParameters::CONTROLLER]);
         $controller->setParameters($this->params, $this->getQueryParameters($url));
         $controller->callAction($this->params[RouteParameters::ACTION]);
-    }
-
-    /**
-     * Parse request URL.
-     *
-     * Extract the URL path and an array of URL query
-     * parameters and set them to the properties.
-     *
-     * @param string $url The request URL.
-     * @return void
-     */
-    protected function parseUrl(string $url): void
-    {
-        $components = parse_url($url);
-        $this->path = $components['path'] ?: '/';
     }
 
     /**
