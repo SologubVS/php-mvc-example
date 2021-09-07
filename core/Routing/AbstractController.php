@@ -55,10 +55,17 @@ abstract class AbstractController implements ControllerInterface
     /**
      * {@inheritdoc}
      */
-    public function setParameters(array $route, array $query): void
+    public function setRouteParameters(array $params): void
     {
-        $this->routeParams = $route;
-        $this->queryParams = $query;
+        $this->routeParams = $params;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setQueryParameters(array $params): void
+    {
+        $this->queryParams = $params;
     }
 
     /**
