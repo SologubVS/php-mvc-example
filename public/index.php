@@ -1,5 +1,7 @@
 <?php
 
+use Core\Routing\RouteParameters as Route;
+
 require __DIR__ . '/../vendor/autoload.php';
 
 Dotenv\Dotenv::createImmutable(dirname(__DIR__))->safeLoad();
@@ -12,16 +14,18 @@ Core\View::addPath(__DIR__ . '/../app/views');
 
 $router = new Core\Routing\Router('/', 'App\Controllers');
 $router->add('/', [
-    'controller' => 'Home',
-    'action'     => 'index',
+    Route::CONTROLLER => 'Home',
+    Route::ACTION     => 'index',
 ]);
 $router->add('/posts', [
-    'controller' => 'Posts',
-    'action'     => 'index',
+    Route::CONTROLLER => 'Posts',
+    Route::ACTION     => 'index',
 ]);
 $router->add('/databases', [
-    'controller' => 'Databases',
-    'action'     => 'index',
+    Route::CONTROLLER => 'Databases',
+    Route::ACTION     => 'index',
 ]);
-$router->add(sprintf('/{%s}', 'controller'), ['action' => 'index']);
+$router->add(sprintf('/{%s}', Route::CONTROLLER), [
+    Route::ACTION => 'index',
+]);
 $router->dispatch($_SERVER['REQUEST_URI']);
