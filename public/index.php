@@ -12,11 +12,16 @@ $handler->register();
 
 $router = new Core\Routing\Router('/', 'App\Controllers');
 $router->add('/', [
-    'controller' => 'home',
-    'action' => 'index',
+    'controller' => 'Home',
+    'action'     => 'index',
 ]);
-$router->add('/{controller}', [
-    'action' => 'index',
+$router->add('/posts', [
+    'controller' => 'Posts',
+    'action'     => 'index',
 ]);
-$router->add('/{controller}/{action}');
+$router->add('/databases', [
+    'controller' => 'Databases',
+    'action'     => 'index',
+]);
+$router->add(sprintf('/{%s}', 'controller'), ['action' => 'index']);
 $router->dispatch($_SERVER['REQUEST_URI']);
