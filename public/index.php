@@ -5,7 +5,10 @@ use Core\Exception\Handler as ExceptionHandler;
 use Core\Routing\RouteParameters as Route;
 use Core\Routing\Router;
 
-$appBasePath = dirname(__DIR__);
+[$appBasePath, $routeBasePath] = [
+    dirname(__DIR__),
+    rtrim(dirname($_SERVER['SCRIPT_NAME']), '\\/'),
+];
 
 require $appBasePath . '/vendor/autoload.php';
 
@@ -16,8 +19,9 @@ $handler = new ExceptionHandler($logger, Debug::get());
 $handler->register();
 
 Core\View::addPath($appBasePath . '/app/views');
+Core\View::addGlobal('baseRoute', $routeBasePath);
 
-$router = new Router('/', 'App\Controllers');
+$router = new Router($routeBasePath, 'App\Controllers');
 $router->add('/', [
     Route::CONTROLLER => 'Home',
     Route::ACTION     => 'index',
