@@ -5,15 +5,17 @@ use Core\Exception\Handler as ExceptionHandler;
 use Core\Routing\RouteParameters as Route;
 use Core\Routing\Router;
 
-require __DIR__ . '/../vendor/autoload.php';
+$appBasePath = dirname(__DIR__);
 
-Dotenv\Dotenv::createImmutable(dirname(__DIR__))->safeLoad();
+require $appBasePath . '/vendor/autoload.php';
 
-$logger  = new Core\Logger(__DIR__ . '/../logs/app.log');
+Dotenv\Dotenv::createImmutable($appBasePath)->safeLoad();
+
+$logger  = new Core\Logger($appBasePath . '/logs/app.log');
 $handler = new ExceptionHandler($logger, Debug::get());
 $handler->register();
 
-Core\View::addPath(__DIR__ . '/../app/views');
+Core\View::addPath($appBasePath . '/app/views');
 
 $router = new Router('/', 'App\Controllers');
 $router->add('/', [
