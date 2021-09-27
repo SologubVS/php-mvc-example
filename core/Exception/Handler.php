@@ -107,7 +107,7 @@ class Handler
      */
     protected function shouldReport(Throwable $exception): bool
     {
-        return !$this->isHttpException($exception);
+        return $this->isDebug() || !$this->isHttpException($exception);
     }
 
     /**
