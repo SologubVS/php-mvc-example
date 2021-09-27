@@ -1,5 +1,5 @@
 {
-    "name": "pmf/php-mvc-framework",
+    "name": "pme/php-mvc-example",
     "type": "project",
     "license": "MIT",
     "require": {

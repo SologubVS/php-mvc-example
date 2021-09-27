@@ -1,5 +1,5 @@
 {
-    "name": "PHP MVC Framework",
+    "name": "PHP MVC Example",
     "dockerComposeFile": [
         "../docker-compose.yml",
         "docker-compose.yml"
