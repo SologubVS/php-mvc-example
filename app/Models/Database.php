@@ -14,8 +14,7 @@ class Database extends AbstractModel
      */
     public static function all(): array
     {
-        $pdo = static::getPdo();
-        $statement = $pdo->query('SELECT * FROM information_schema.SCHEMATA');
+        $statement = static::getPdo()->query('SELECT * FROM information_schema.SCHEMATA');
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 }
