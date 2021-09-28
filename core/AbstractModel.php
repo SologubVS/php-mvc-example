@@ -6,7 +6,7 @@ use Core\Database\Connector;
 use Core\Database\Environment;
 use PDO;
 
-abstract class AbstractModel
+abstract class AbstractModel implements ModelInterface
 {
     /**
      * The active PDO connection.
