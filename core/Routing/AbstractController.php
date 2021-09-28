@@ -37,11 +37,7 @@ abstract class AbstractController implements ControllerInterface
      */
     public function callAction(string $action): void
     {
-        $suffix = static::ACTION_NAME_SUFFIX;
-        if ($action !== '' && !preg_match("/{$suffix}$/i", $action)) {
-            $action .= $suffix;
-        }
-
+        $action = $this->prepareActionName($action);
         if (!method_exists($this, $action)) {
             throw new HttpException(404, sprintf('Action \'%s\' not found in \'%s\'.', $action, get_class($this)));
         }
@@ -50,6 +46,21 @@ abstract class AbstractController implements ControllerInterface
             $this->{$action}();
             $this->after();
         }
+    }
+
+    /**
+     * Add action method suffix to action name.
+     *
+     * @param string $name The name of the action.
+     * @return string Action method name with suffix.
+     */
+    protected function prepareActionName(string $name): string
+    {
+        $suffix = static::ACTION_NAME_SUFFIX;
+        if ($name !== '' && !preg_match("/{$suffix}$/i", $name)) {
+            $name .= $suffix;
+        }
+        return $name;
     }
 
     /**
