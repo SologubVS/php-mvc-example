@@ -5,11 +5,7 @@
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
-        <nav>
-            <a href="{{ baseRoute }}/">Home</a>
-            <a href="{{ baseRoute }}/posts">Posts</a>
-            <a href="{{ baseRoute }}/databases">Databases</a>
-        </nav>
+        {% include 'navigation.html' %}
         {% block body %}{% endblock %}
     </body>
 </html>
