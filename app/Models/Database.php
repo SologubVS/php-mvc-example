@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Core\AbstractModel;
+use Core\Entities\AbstractModel;
 use PDO;
 
 class Database extends AbstractModel

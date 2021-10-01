@@ -1,6 +1,8 @@
 <?php
 
-namespace Core;
+namespace Core\Entities;
+
+use Core\CollectionInterface;
 
 interface ModelRecordsInterface extends CollectionInterface
 {

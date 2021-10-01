@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Core\Entities;
 
 use Core\Database\Connector;
 use Core\Database\Environment;
