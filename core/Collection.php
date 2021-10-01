@@ -32,4 +32,13 @@ class Collection extends ArrayObject implements CollectionInterface
         $storage = (array) $this;
         return array_shift($storage);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function last()
+    {
+        $storage = (array) $this;
+        return array_pop($storage);
+    }
 }

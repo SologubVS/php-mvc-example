@@ -22,4 +22,11 @@ interface CollectionInterface extends ArrayAccess, IteratorAggregate, Countable
      * @return mixed
      */
     public function first();
+
+    /**
+     * Get the value of the last element in the collection.
+     *
+     * @return mixed
+     */
+    public function last();
 }
