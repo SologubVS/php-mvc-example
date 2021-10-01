@@ -19,14 +19,14 @@ interface CollectionInterface extends ArrayAccess, IteratorAggregate, Countable
     /**
      * Get the value of the first element in the collection.
      *
-     * @return mixed
+     * @return mixed|null The value if found, null otherwise.
      */
     public function first();
 
     /**
      * Get the value of the last element in the collection.
      *
-     * @return mixed
+     * @return mixed|null The value if found, null otherwise.
      */
     public function last();
 }
