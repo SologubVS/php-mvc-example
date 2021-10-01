@@ -5,9 +5,9 @@ namespace Core\Entities;
 interface ModelInterface
 {
     /**
-     * Get all records as an array.
+     * Get all model records.
      *
-     * @return array An associative array of model records.
+     * @return \Core\Entities\ModelRecordsInterface Collection of model records.
      */
-    public static function all(): array;
+    public static function all(): ModelRecordsInterface;
 }

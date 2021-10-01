@@ -3,17 +3,18 @@
 namespace App\Models;
 
 use Core\Entities\AbstractModel;
+use Core\Entities\ModelRecords;
 
 class Post extends AbstractModel
 {
     /**
-     * Get all posts as an array.
+     * Get all posts records.
      *
-     * @return array An associative array of posts info.
+     * @return \Core\Entities\ModelRecords Collection of posts records.
      */
-    public static function all(): array
+    public static function all(): ModelRecords
     {
-        return [
+        return new ModelRecords([
             [
                 'title' => 'Post #1',
                 'content' => 'Pellentesque venenatis tempor elementum. Suspendisse pretium in.',
@@ -26,6 +27,6 @@ class Post extends AbstractModel
                 'title' => 'Post #3',
                 'content' => 'Proin varius tellus at euismod porttitor. Quisque sit amet duis.',
             ],
-        ];
+        ]);
     }
 }
