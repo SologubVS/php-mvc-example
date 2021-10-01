@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Core\Support;
 
 use ArrayAccess;
 use Countable;

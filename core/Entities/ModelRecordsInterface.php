@@ -2,7 +2,7 @@
 
 namespace Core\Entities;
 
-use Core\CollectionInterface;
+use Core\Support\CollectionInterface;
 
 interface ModelRecordsInterface extends CollectionInterface
 {
