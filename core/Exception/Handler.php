@@ -14,6 +14,15 @@ class Handler
     use LoggerAwareTrait;
 
     /**
+     * A list of exceptions that are not reported.
+     *
+     * @var string[]
+     */
+    protected $notReportable = [
+        HttpException::class,
+    ];
+
+    /**
      * Create a new exception handler.
      *
      * @param \Psr\Log\LoggerInterface $logger Instance of the logger.
@@ -107,7 +116,7 @@ class Handler
      */
     protected function shouldReport(Throwable $exception): bool
     {
-        return $this->isDebug() || !$this->isHttpException($exception);
+        return $this->isDebug() || $this->isReportable($exception);
     }
 
     /**
@@ -118,7 +127,7 @@ class Handler
      */
     protected function shouldDebugRender(Throwable $exception): bool
     {
-        return $this->isDebug() && !$this->isHttpException($exception);
+        return $this->isDebug() && !$exception instanceof HttpException;
     }
 
     /**
@@ -130,5 +139,18 @@ class Handler
     protected function isHttpException(Throwable $exception): bool
     {
         return $exception instanceof HttpException;
+    }
+
+    /**
+     * Determine if the exception is reportable.
+     *
+     * @param \Throwable $exception Exception object to be checked.
+     * @return bool True if exception is reportable, false otherwise.
+     */
+    protected function isReportable(Throwable $exception): bool
+    {
+        return empty(array_filter($this->notReportable, function ($type) use ($exception) {
+            return $exception instanceof $type;
+        }));
     }
 }
