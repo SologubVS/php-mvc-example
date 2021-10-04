@@ -19,10 +19,10 @@ class HttpException extends RuntimeException
      *
      * @param int $statusCode HTTP status code.
      * @param string $message Exception message to throw.
-     * @param int $code Exception code.
      * @param \Throwable|null $previous Previous exception.
+     * @param int $code Exception code.
      */
-    public function __construct(int $statusCode, string $message = '', int $code = 0, ?Throwable $previous = null)
+    public function __construct(int $statusCode, string $message = '', ?Throwable $previous = null, int $code = 0)
     {
         $this->statusCode = $statusCode;
         parent::__construct($message, $code, $previous);
