@@ -131,17 +131,6 @@ class Handler
     }
 
     /**
-     * Determine if the given exception is an HTTP exception.
-     *
-     * @param \Throwable $exception Exception object to be checked.
-     * @return bool True if the exception is HttpException, false otherwise.
-     */
-    protected function isHttpException(Throwable $exception): bool
-    {
-        return $exception instanceof HttpException;
-    }
-
-    /**
      * Determine if the exception is reportable.
      *
      * @param \Throwable $exception Exception object to be checked.
