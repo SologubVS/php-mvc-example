@@ -2,6 +2,7 @@
 
 namespace Core\Exception;
 
+use Core\Entities\ModelNotFoundException;
 use Core\Exception\Debug\DebugTrait;
 use ErrorException;
 use Psr\Log\LoggerAwareTrait;
@@ -20,6 +21,7 @@ class Handler
      */
     protected $notReportable = [
         HttpException::class,
+        ModelNotFoundException::class,
     ];
 
     /**
@@ -104,8 +106,27 @@ class Handler
      */
     protected function render(Throwable $exception): void
     {
+        $exception = $this->prepareForRender($exception);
         $renderer = new Renderer($this->shouldDebugRender($exception));
         $renderer->render($exception);
+    }
+
+    /**
+     * Prepare an exception for rendering.
+     *
+     * Depending on the type of the exception, returns
+     * an exception object of a different type, with the
+     * original exception set as the previous.
+     *
+     * @param \Throwable $exception Exception object that was thrown.
+     * @return \Throwable An exception object ready for rendering.
+     */
+    protected function prepareForRender(Throwable $exception): Throwable
+    {
+        if ($exception instanceof ModelNotFoundException) {
+            return new HttpException(404, $exception->getMessage(), $exception);
+        }
+        return $exception;
     }
 
     /**
