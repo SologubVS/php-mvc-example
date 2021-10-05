@@ -46,4 +46,15 @@ abstract class AbstractModel implements ModelInterface
     {
         return static::all()->where($key, $value)->first();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getOrFail(string $key, $value): array
+    {
+        if ($record = static::get($key, $value)) {
+            return $record;
+        }
+        throw new ModelNotFoundException(sprintf('Record for \'%s\' not found.', static::class));
+    }
 }
