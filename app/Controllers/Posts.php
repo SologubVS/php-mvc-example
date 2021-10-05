@@ -19,4 +19,16 @@ class Posts extends AbstractController
             'posts' => Post::all(),
         ]);
     }
+
+    /**
+     * Show single post page.
+     *
+     * @return void
+     */
+    public function showAction(): void
+    {
+        View::render('posts/single.html', [
+            'post' => Post::getBySlug($this->routeParams['slug']),
+        ]);
+    }
 }

@@ -30,6 +30,10 @@ $router->add('/posts', [
     Route::CONTROLLER => 'Posts',
     Route::ACTION     => 'index',
 ]);
+$router->add('/posts/{slug}', [
+    Route::CONTROLLER => 'Posts',
+    Route::ACTION     => 'show',
+]);
 $router->add('/databases', [
     Route::CONTROLLER => 'Databases',
     Route::ACTION     => 'index',
