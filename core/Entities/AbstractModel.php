@@ -38,4 +38,12 @@ abstract class AbstractModel implements ModelInterface
         $connector = new Connector(Environment::get());
         return $connector->connect();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function get(string $key, $value): ?array
+    {
+        return static::all()->where($key, $value)->first();
+    }
 }
