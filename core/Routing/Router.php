@@ -141,7 +141,7 @@ class Router
      * @param string $url The request URL.
      * @return array Query parameters.
      */
-    public static function getQueryParameters(string $url): array
+    protected function getQueryParameters(string $url): array
     {
         parse_str(html_entity_decode(parse_url($url, PHP_URL_QUERY)), $query);
         return $query;
