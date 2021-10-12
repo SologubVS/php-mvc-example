@@ -12,6 +12,13 @@ class Route implements RouteInterface
     protected $path = '';
 
     /**
+     * Route parameters.
+     *
+     * @var array
+     */
+    protected $params = [];
+
+    /**
      * Create a new route.
      *
      * @param string $path The route path.
@@ -21,6 +28,7 @@ class Route implements RouteInterface
     public function __construct(string $path, RouteParamsInterface $params, string $namespace = '')
     {
         $this->path = $path;
+        $this->params = $params->extract();
     }
 
     /**
@@ -29,5 +37,13 @@ class Route implements RouteInterface
     public function getPath(): string
     {
         return $this->path;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getParam(string $key, $default = null)
+    {
+        return array_key_exists($key, $this->params) ? $this->params[$key] : $default;
     }
 }
