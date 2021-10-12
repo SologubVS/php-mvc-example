@@ -88,6 +88,14 @@ class Route implements RouteInterface
     /**
      * {@inheritdoc}
      */
+    public function getParams(): array
+    {
+        return $this->params;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getParam(string $key, $default = null)
     {
         return array_key_exists($key, $this->params) ? $this->params[$key] : $default;

@@ -26,6 +26,13 @@ interface RouteInterface
     public function getAction(): string;
 
     /**
+     * Get route parameters.
+     *
+     * @return array Route parameters.
+     */
+    public function getParams(): array;
+
+    /**
      * Get route parameter by name.
      *
      * @param string $key Parameter name.
