@@ -19,6 +19,13 @@ interface RouteInterface
     public function getController(): string;
 
     /**
+     * Get controller action name.
+     *
+     * @return string Controller action name.
+     */
+    public function getAction(): string;
+
+    /**
      * Get route parameter by name.
      *
      * @param string $key Parameter name.

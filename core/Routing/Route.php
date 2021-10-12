@@ -19,6 +19,13 @@ class Route implements RouteInterface
     protected $controller = '';
 
     /**
+     * Controller action name.
+     *
+     * @var string
+     */
+    protected $action = '';
+
+    /**
      * Route parameters.
      *
      * @var array
@@ -36,6 +43,7 @@ class Route implements RouteInterface
     {
         $this->path = $path;
         $this->controller = MethodPreparer::prepareController($params->extractController(), $namespace);
+        $this->action = MethodPreparer::prepareAction($params->extractAction());
         $this->params = $params->extract();
     }
 
@@ -53,6 +61,14 @@ class Route implements RouteInterface
     public function getController(): string
     {
         return $this->controller;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAction(): string
+    {
+        return $this->action;
     }
 
     /**
