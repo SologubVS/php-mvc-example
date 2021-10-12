@@ -34,10 +34,6 @@ $router->add('/posts/{slug}', [
     Route::CONTROLLER => 'Posts',
     Route::ACTION     => 'show',
 ]);
-$router->add('/databases', [
-    Route::CONTROLLER => 'Databases',
-    Route::ACTION     => 'index',
-]);
 $router->add(sprintf('/{%s}', Route::CONTROLLER), [
     Route::ACTION => 'index',
 ]);
