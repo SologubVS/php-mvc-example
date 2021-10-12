@@ -16,6 +16,7 @@ class Posts extends AbstractController
     public function indexAction(): void
     {
         View::render('posts/index.html', [
+            'postsRoute' => $this->route->getPath(),
             'posts' => Post::all(),
         ]);
     }

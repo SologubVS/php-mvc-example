@@ -7,7 +7,7 @@
 
     {% for post in posts %}
         <article>
-            <h2><a href="{{ baseRoute }}/posts/{{ post.slug }}">{{ post.title }}</a></h2>
+            <h2><a href="{{ postsRoute }}/{{ post.slug }}">{{ post.title }}</a></h2>
             <p>{{ post.content }}</p>
         </article>
     {% endfor %}
