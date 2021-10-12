@@ -63,8 +63,8 @@ class Router
      * precedence over the values retrieved from the route string.
      *
      * @see \Core\Routing\Router::convertRouteToRegex()
-     * @see \Core\Routing\RouteParameters::CONTROLLER
-     * @see \Core\Routing\RouteParameters::ACTION
+     * @see \Core\Routing\RouteParams::CONTROLLER
+     * @see \Core\Routing\RouteParams::ACTION
      *
      * @param string $route The route path.
      * @param array $params Route parameters.

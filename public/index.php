@@ -2,7 +2,7 @@
 
 use Core\Exception\Debug\Environment as Debug;
 use Core\Exception\Handler as ExceptionHandler;
-use Core\Routing\RouteParameters as Route;
+use Core\Routing\RouteParams as Route;
 use Core\Routing\Router;
 
 [$appBasePath, $routeBasePath] = [
