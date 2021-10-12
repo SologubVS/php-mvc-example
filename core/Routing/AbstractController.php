@@ -14,11 +14,11 @@ abstract class AbstractController implements ControllerInterface
     public const ACTION_NAME_SUFFIX = 'Action';
 
     /**
-     * Parameters from the matched route.
+     * Matched route.
      *
-     * @var array
+     * @var \Core\Routing\RouteInterface
      */
-    protected $routeParams = [];
+    protected $route;
 
     /**
      * Parameters from the request URL.
@@ -66,9 +66,9 @@ abstract class AbstractController implements ControllerInterface
     /**
      * {@inheritdoc}
      */
-    public function setRouteParameters(array $params): void
+    public function setRoute(RouteInterface $route): void
     {
-        $this->routeParams = $params;
+        $this->route = $route;
     }
 
     /**

@@ -15,12 +15,12 @@ interface ControllerInterface
     public function callAction(string $action): void;
 
     /**
-     * Set parameters from the matched route.
+     * Set matched route.
      *
-     * @param array $params Route parameters.
+     * @param \Core\Routing\RouteInterface $route Matched route.
      * @return void
      */
-    public function setRouteParameters(array $params): void;
+    public function setRoute(RouteInterface $route): void;
 
     /**
      * Set query parameters from the request URL.

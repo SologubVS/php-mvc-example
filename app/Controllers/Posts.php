@@ -28,7 +28,7 @@ class Posts extends AbstractController
     public function showAction(): void
     {
         View::render('posts/single.html', [
-            'post' => Post::getBySlug($this->routeParams['slug']),
+            'post' => Post::getBySlug($this->route->getParam('slug')),
         ]);
     }
 }

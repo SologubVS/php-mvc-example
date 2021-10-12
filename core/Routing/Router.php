@@ -130,7 +130,7 @@ class Router
         }
 
         $controller = $this->createController($this->route->getController());
-        $controller->setRouteParameters($this->route->getParams());
+        $controller->setRoute($this->route);
         $controller->setQueryParameters($this->getQueryParameters($url));
         $controller->callAction($this->route->getAction());
     }
