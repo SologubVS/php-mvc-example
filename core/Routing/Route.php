@@ -42,8 +42,22 @@ class Route implements RouteInterface
     public function __construct(string $path, RouteParamsInterface $params, string $namespace = '')
     {
         $this->path = $path;
-        $this->controller = MethodPreparer::prepareController($params->extractController(), $namespace);
-        $this->action = MethodPreparer::prepareAction($params->extractAction());
+        $this->parseParams($params, $namespace);
+    }
+
+    /**
+     * Parse route parameters and set appropriate properties.
+     *
+     * @param \Core\Routing\RouteParamsInterface $params Route parameters.
+     * @param string $namespace Controllers namespace.
+     * @return void
+     */
+    protected function parseParams(RouteParamsInterface $params, string $namespace = ''): void
+    {
+        [$this->controller, $this->action] = [
+            MethodPreparer::prepareController($params->extractController(), $namespace),
+            MethodPreparer::prepareAction($params->extractAction()),
+        ];
         $this->params = $params->extract();
     }
 
