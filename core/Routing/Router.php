@@ -32,11 +32,11 @@ class Router
     protected $routes = [];
 
     /**
-     * Parameters from the matched route.
+     * Matched route.
      *
-     * @var array
+     * @var \Core\Routing\RouteInterface
      */
-    protected $params = [];
+    protected $route;
 
     /**
      * Create a new router.
@@ -129,10 +129,10 @@ class Router
             throw new HttpException(404, 'No route matched.');
         }
 
-        $controller = $this->createController($this->params[RouteParameters::CONTROLLER]);
-        $controller->setRouteParameters($this->params);
+        $controller = $this->createController($this->route->getController());
+        $controller->setRouteParameters($this->route->getParams());
         $controller->setQueryParameters($this->getQueryParameters($url));
-        $controller->callAction($this->params[RouteParameters::ACTION]);
+        $controller->callAction($this->route->getAction());
     }
 
     /**
@@ -160,7 +160,9 @@ class Router
         foreach ($this->routes as $route => $params) {
             if (preg_match($route, $path, $matches)) {
                 $matches = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-                $this->params = RouteParameters::prepare(array_merge($matches, $params), $this->namespace);
+
+                $params = new RouteParams(array_merge($matches, $params));
+                $this->route = new Route($path, $params, $this->namespace);
                 return true;
             }
         }
