@@ -25,8 +25,8 @@ interface ControllerInterface
     /**
      * Set query parameters from the request URL.
      *
-     * @param array $params Query parameters.
+     * @param array $query Query parameters.
      * @return void
      */
-    public function setQueryParameters(array $params): void;
+    public function setQuery(array $query): void;
 }

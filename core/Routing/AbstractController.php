@@ -25,7 +25,7 @@ abstract class AbstractController implements ControllerInterface
      *
      * @var array
      */
-    protected $queryParams = [];
+    protected $query = [];
 
     /**
      * Call action method with before and after filters.
@@ -74,9 +74,9 @@ abstract class AbstractController implements ControllerInterface
     /**
      * {@inheritdoc}
      */
-    public function setQueryParameters(array $params): void
+    public function setQuery(array $query): void
     {
-        $this->queryParams = $params;
+        $this->query = $query;
     }
 
     /**
