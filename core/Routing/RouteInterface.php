@@ -12,6 +12,13 @@ interface RouteInterface
     public function getPath(): string;
 
     /**
+     * Get controller class name.
+     *
+     * @return string Controller class name.
+     */
+    public function getController(): string;
+
+    /**
      * Get route parameter by name.
      *
      * @param string $key Parameter name.
