@@ -6,14 +6,10 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
     sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf; \
     a2enmod rewrite; \
     \
-    curl -o /usr/local/bin/composer \
-    -fL https://github.com/composer/composer/releases/latest/download/composer.phar; \
-    chmod +x /usr/local/bin/composer; \
-    \
     curl -o /usr/local/bin/install-php-extensions \
     -fL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions; \
     chmod +x /usr/local/bin/install-php-extensions; \
-    install-php-extensions pdo_mysql xdebug; \
+    install-php-extensions @composer-2.1.9 pdo_mysql xdebug; \
     { \
         printf '%s\n' \
         'error_reporting = E_ALL' \
