@@ -1,5 +1,6 @@
 {
     "name": "pme/php-mvc-example",
+    "description": "A simple implementation of the MVC pattern in the PHP language.",
     "type": "project",
     "license": "MIT",
     "require": {
