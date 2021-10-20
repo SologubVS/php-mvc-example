@@ -24,7 +24,8 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
         printf '%s\n' \
         'xdebug.client_host = host.docker.internal' \
         'xdebug.mode = develop,debug' \
-        'xdebug.start_with_request = yes'; \
+        'xdebug.start_with_request = yes' \
+        'xdebug.log = /tmp/xdebug.log'; \
     } > /usr/local/etc/php/conf.d/000-xdebug.ini; \
     \
     apt-get update; \
