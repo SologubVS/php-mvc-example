@@ -1,27 +1,33 @@
 <?php
 
 use Core\Exception\Debug\Environment as Debug;
-use Core\Exception\Handler as ExceptionHandler;
 use Core\Routing\RouteParams as Route;
-use Core\Routing\Router;
 
-[$appBasePath, $routeBasePath] = [
-    dirname(__DIR__),
-    rtrim(dirname($_SERVER['SCRIPT_NAME']), '\\/'),
-];
+// Register a class autoloader.
+require __DIR__ . '/../vendor/autoload.php';
 
-require $appBasePath . '/vendor/autoload.php';
+// Load configuration from .env file.
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->safeLoad();
 
-Dotenv\Dotenv::createImmutable($appBasePath)->safeLoad();
+// Create a logger specifying the path to the log file.
+$logger = new Core\Logger(__DIR__ . '/../logs/app.log');
 
-$logger  = new Core\Logger($appBasePath . '/logs/app.log');
-$handler = new ExceptionHandler($logger, Debug::get());
+// Register an exception handler.
+$handler = new Core\Exception\Handler($logger, Debug::get());
 $handler->register();
 
-Core\View::addPath($appBasePath . '/app/views');
-Core\View::addGlobal('baseRoute', $routeBasePath);
+// Add path to view files.
+Core\View::addPath(__DIR__ . '/../app/views');
 
-$router = new Router($routeBasePath, 'App\Controllers');
+// Calculate base path of routes.
+$baseRoute = rtrim(dirname($_SERVER['SCRIPT_NAME']), '\\/');
+
+// Add base route to views and create a router specifying the controllers namespace.
+Core\View::addGlobal('baseRoute', $baseRoute);
+$router = new Core\Routing\Router($baseRoute, 'App\Controllers');
+
+// Add routes and dispatch the request URI.
 $router->add('/', [
     Route::CONTROLLER => 'Home',
     Route::ACTION     => 'index',
