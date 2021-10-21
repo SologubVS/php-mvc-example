@@ -9,6 +9,7 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
     curl -o /usr/local/bin/install-php-extensions \
     -fL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions; \
     chmod +x /usr/local/bin/install-php-extensions; \
+    install -m 664 -g www-data /dev/null /tmp/xdebug.log; \
     install-php-extensions @composer-2.1.9 pdo_mysql xdebug-^3.1; \
     { \
         printf '%s\n' \
