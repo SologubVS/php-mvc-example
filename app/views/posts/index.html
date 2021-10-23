@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Posts{% endblock %}
+{% block body %}
+    <h1>Posts</h1>
+    <p>Etiam tellus quam, pulvinar sit amet enim sit amet, posuere nam.</p>
+
+    {% for post in posts %}
+        <article>
+            <h2><a href="{{ postsRoute }}/{{ post.slug }}">{{ post.title }}</a></h2>
+            <p>{{ post.content }}</p>
+        </article>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{
+    "name": "pme/php-mvc-example",
+    "description": "A simple implementation of the MVC pattern in the PHP language.",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": "^7.4",
+        "twig/twig": "^3.0",
+        "vlucas/phpdotenv": "^5.3",
+        "psr/log": " ^1.1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core/",
+            "App\\": "app/"
+        }
+    }
+}

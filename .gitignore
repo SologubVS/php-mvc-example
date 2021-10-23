@@ -1,0 +1,15 @@
+.DS_Store
+Thumbs.db
+
+.env
+/vendor
+/logs
+
+docker-compose.override.yml
+
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json.default
+/.devcontainer.json
+/.devcontainer/devcontainer.json
